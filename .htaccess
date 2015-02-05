@@ -1,4 +1,5 @@
-addtype text/css .css
+# addtype text/css .css
+
 Options -MultiViews
 RewriteEngine On
 

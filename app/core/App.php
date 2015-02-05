@@ -1,7 +1,7 @@
 <?php
-// ------------------------------------ 
+//--------------------------------------------------
 //	App
-// ------------------------------------
+//--------------------------------------------------
 
 class App {
 
@@ -12,7 +12,10 @@ class App {
 	public function __construct(){
 		$url = $this->parseUrl();
 
+		
+		//--------------------------------------------------
 		// check controller for existence
+
 		if(file_exists('../app/controllers/'.ucfirst($url[0]).'.php')){
 			$this->controller = ucfirst($url[0]);
 			unset($url[0]);
@@ -24,7 +27,10 @@ class App {
 
 		$this->controller = new $this->controller;
 
+
+		//--------------------------------------------------
 		// check for method existence within the controller
+
 		if(method_exists($this->controller, $url[1])){
 			$this->method = $url[1];
 			unset($url[1]);
@@ -35,7 +41,10 @@ class App {
 			}
 		}
 
+
+		//--------------------------------------------------
 		// define parameters
+
 		$this->params = $url ? array_values($url) : [];
 
 		$obj = [$this->controller, $this->method];
@@ -46,8 +55,5 @@ class App {
 		if(isset($_GET['url'])){
 			return $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
 		}
-		/*if(isset($_SERVER['REQUEST_URI'])){
-			return $url = explode('/', filter_var(rtrim($_SERVER['REQUEST_URI'], '/'), FILTER_SANITIZE_URL));
-		}*/
 	}
 }

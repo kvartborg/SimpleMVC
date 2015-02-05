@@ -1,0 +1,175 @@
+/*###############################################
+##  Default
+###############################################*/
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #f8f8f8;
+  font-family: 'museo-sans';
+  background-size: cover;
+  background-attachment: fixed;
+  font-weight: 300;
+}
+
+a {
+  color: #48b38c;
+}
+
+h1 {
+  font-family: 'museo-slab';
+}
+
+.topfix {
+  margin-top: 100%;
+}
+
+
+
+/*###############################################
+##  wrappers
+###############################################*/
+
+.wrapper {
+  padding: 30px;
+  padding-left: 100px;
+  background: #fff;
+}
+
+.wrapper p {
+  line-height: 24px;
+  word-spacing: 4px;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wrapper h1 {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wrapper .content {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fullscreen {
+  display: table;
+  position: relative;
+  padding: 0 !important;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  text-align: center
+}
+
+.fullscreen .middle {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center
+}
+
+.fullscreen .middle h1 { margin: 0; color: #fff; font-size: 55px; font-weight: 900;}
+
+/*###############################################
+##  Navigation
+###############################################*/
+nav {
+  width: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #222;
+  box-shadow: 0px 2px 0px rgba(0,0,0,0.05);
+  z-index: 99;
+}
+
+nav .logo {
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  font-size: 36px;
+  color: #fff;
+  line-height: 70px;
+  background: #222;
+  display: inline-block;
+  float: left;
+  font-weight: 500;
+} 
+
+nav ul {
+  margin: 0;
+  height: 70px;
+  float: right;
+  padding: 0;
+  display: inline-block;
+}
+
+nav ul li {
+  list-style: none;
+  float: left;
+  height: 70px;
+  line-height: 70px;
+  margin-left: 30px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  opacity: .6;
+  -webkit-transition: all .2s;
+}
+
+nav ul li:hover {
+  border-bottom: solid 2px #333;
+  opacity: 1;
+}
+
+
+/*###############################################
+##  buttons
+###############################################*/
+
+button {
+  min-width: 150px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 20px;
+  border: none;
+  background: transparent;
+}
+
+
+/*###############################################
+##  code
+###############################################*/
+
+pre {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*###############################################
+##  footer
+###############################################*/
+
+.footer {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  padding-left: 100px;
+  color: #999;
+  font-size: 15px;
+  background: #eee;
+  display: none;
+}
+
+
+
+
+

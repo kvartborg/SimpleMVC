@@ -7,7 +7,10 @@ class Hello extends BaseController {
     // model
     $user = $this->model('User');
 
-    // make view
-    $this->view('/index', $user);
-	}
+    $test = DB::query('SELECT * FROM users');
+    var_dump($test);
+
+    // make page
+    View::make('index', $user);
+  }
 }

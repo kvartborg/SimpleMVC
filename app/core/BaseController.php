@@ -2,8 +2,9 @@
 // ------------------------------------ 
 //	Base Controller
 // ------------------------------------
+require_once "View.php";
 
-class BaseController {
+class BaseController extends View {
 
 	public function notFound(){
     $this->view('/error/404');
@@ -14,8 +15,15 @@ class BaseController {
     return new $model();
   }
 
-  public function view($view, $data = array()){
-    require_once '../app/views'.$view.'.php';
-  }
+  // public function view($view, $data = array()){
+
+  //   if($view[0] == '/'){
+  //     // do nothing
+  //   } else {
+  //     $view = '/'.$view;
+  //   }
+
+  //   require_once '../app/views'.$view.'.php';
+  // }
 
 }

@@ -14,7 +14,7 @@ class BaseController {
     return new $model();
   }
 
-  public function view($view, $data = []){
+  public function view($view, $data = array()){
     require_once '../app/views'.$view.'.php';
   }
 

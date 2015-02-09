@@ -18,6 +18,13 @@ View::make('index.php', ['key' => 'value']);
 
 ## Query Builder
 
+##### structure
+
+```php
+// This i an example of how to structure a query
+DB::table('users')->select(['firstname', 'email'])->where('id', 10)->get();
+```
+
 ##### table()
 
 ```php

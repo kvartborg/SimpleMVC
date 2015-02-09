@@ -62,11 +62,12 @@ class DB {
   }
 
 
-  protected function where($key, $value){
+  protected function where($key, $operator = '=', $value){
+
     if(strpos($this->query, 'WHERE') !== false){
-      return new DB($this->query." AND ".$key." = '".$value."'");
+      return new DB($this->query." AND ".$key." ".$operator." '".$value."'");
     } else {
-      return new DB($this->query." WHERE ".$key." = '".$value."'");
+      return new DB($this->query." WHERE ".$key." ".$operator." '".$value."'");
     }
   }
 

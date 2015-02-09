@@ -18,16 +18,45 @@ View::make('index.php', ['key' => 'value']);
 
 ## Query Builder
 
-##### Table()
+##### table()
 
 ```php
 // get all records from table
 DB::table('users')->get();
 ```
 
-##### Select()
+##### select()
 
 ```php
 // get selected fields of all records from table
 DB::table('users')->select(['firstname', 'email'])->get();
 ```
+
+##### where()
+
+```php
+// Sort data by 
+DB::table('users')->where('key', $value)->get();
+```
+
+##### orderBy()
+
+```php
+// Order by
+DB::table('users')->orderBy('firstname', 'ASC')->get();
+```
+
+##### first()
+
+```php
+// get the first record in result
+DB::table('users')->first();
+```
+
+##### query()
+
+```php
+// write normal query
+DB::query("SELECT * FROM users");
+```
+

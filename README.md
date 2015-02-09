@@ -3,13 +3,14 @@
 Simple MVC is a simplistic file structure for php projects, very compact and easy to use.
 
 ## Views
+
 Render views with this function.
 ```php
 // render index.php
 View::make('index.php');
 ```
+
 Parse data with view.
-Render views with this function.
 ```php
 // render index.php with data array
 View::make('index.php', ['key' => 'value']);

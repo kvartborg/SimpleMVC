@@ -2,6 +2,24 @@
 
 Simple MVC is a simplistic file structure for php projects, very compact and easy to use.
 
+## Setup App
+
+#### Set the default controller
+This is the equivalent of the "index page"/"home".
+You can change the default controller `app/config/app.php`, default mehod should always be set to `index`
+
+#### Connect to MySQL
+Go to `app/config/database.php`.
+```php
+return array(
+  'host'      => '',
+  'database'  => '',
+  'username'  => '',
+  'password'  => '',
+  'prefix'    => '',
+);
+```
+
 ## Views
 
 Render views with this function.

@@ -9,6 +9,7 @@ Simple MVC is a simplistic file structure for php projects, very compact and eas
 * orderBy()
 * first()
 * get()   
+
 ===
 
 #### Table()

@@ -7,7 +7,7 @@ require_once "View.php";
 class BaseController extends View {
 
 	public function notFound(){
-    $this->view('/error/404');
+    View::make('/error/404');
   }
 
   public function model($model){

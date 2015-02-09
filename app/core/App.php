@@ -5,13 +5,20 @@
 
 class App {
 
-	protected $controller = 'Hello';
-	protected $method = 'index';
+	protected $controller;
+	protected $method;
 	protected $params = array();
 
 	public function __construct(){
 		$url = $this->parseUrl();
 
+
+		//--------------------------------------------------
+		// get the default settings
+		$setting = include __DIR__."../../config/app.php";
+
+		$this->controller = $setting['controller'];
+		$this->method = $setting['method'];
 		
 		//--------------------------------------------------
 		// check controller for existence

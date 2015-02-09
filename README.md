@@ -4,7 +4,7 @@ Simple MVC is a simplistic file structure for php projects, very compact and eas
 
 ## Setup
 
-Download or copy this repository to you domain or project folder, no need for pointing in to the `public` folder. But you can always do it if posible. 
+Download or copy this repository to you domain or project folder, no need for pointing into the `public` folder. But you can always do it if posible. 
 
 #### Set the default controller
 This is the equivalent of the "index page"/"homepage".

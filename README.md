@@ -1,6 +1,6 @@
 # Simple MVC
 
-Simple MVC is a simplistic file structure for php projects, very compact and easy to use.
+Simple MVC is a simplistic php framework, its very compact, customizable and easy to use.
 
 ## Setup
 

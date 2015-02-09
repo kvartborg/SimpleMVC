@@ -5,6 +5,8 @@ Simple MVC is a simplistic file structure for php projects, very compact and eas
 ## Query Builder
 
 ##### Table()
-```// get all records from table
+
+```php
+// get all records from table
 DB::table('users')->get();
 ```

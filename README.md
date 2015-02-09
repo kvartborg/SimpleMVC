@@ -22,7 +22,7 @@ View::make('index.php', ['key' => 'value']);
 
 ```php
 // This i an example of how to structure a query
-DB::table('users')->select(['firstname', 'email'])->where('id', 10)->get();
+DB::table('users')->select(['firstname', 'email'])->where('id', '<', 10)->orderBy('firstname', 'ASC')->get();
 ```
 
 ##### table()

@@ -1,6 +1,6 @@
 <?php
 
-class Hello extends BaseController {
+class HelloController extends BaseController {
 	
 	public function index(){
     

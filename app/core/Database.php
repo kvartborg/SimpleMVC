@@ -10,7 +10,6 @@ class DB {
   protected $con;
   protected $table;
   protected $query;
-  protected $select = array();
 
 
   function __construct($query = ''){
@@ -36,8 +35,8 @@ class DB {
 
 
   protected function query($str){
-    $result = mysqli_fetch_all($this->con->query($str), MYSQLI_ASSOC);
-    return $result;
+    $object = json_decode(json_encode(mysqli_fetch_all($this->con->query($str), MYSQLI_ASSOC)), FALSE);
+    return $object;
   }
 
 
@@ -47,33 +46,62 @@ class DB {
   }
 
 
-  protected function select($select = array()){
-    if(count($select)){
-      $this->select = $select;
+  protected function select($selects = array()){
+    $n = count($selects);
+    if(count($selects)){
       $result;
-      foreach($this->select as $select){
-        $result .= $select.', ';
+      foreach($selects as $key=>$select){
+        $result .= $select;
+        if($key < ($n-1)){
+          $result .= ', ';
+        }
       }
       $this->query = 'SELECT '.$result.' FROM '.$this->query;
-    } else {
-      $this->query = 'SELECT * FROM '.$this->query;
-    }
+    } 
     return new DB($this->query);
   }
 
+
+  protected function where($key, $value){
+    if(strpos($this->query, 'WHERE') !== false){
+      return new DB($this->query." AND ".$key." = '".$value."'");
+    } else {
+      return new DB($this->query." WHERE ".$key." = '".$value."'");
+    }
+  }
+
+
   protected function orderBy($str, $type){
-    return new DB($this->query.' ORDER BY '.$str.', '.$type);
+    return new DB($this->query.' ORDER BY '.$str.' '.$type);
   }
 
 
   public function get(){
-    return $this->query;
-    echo $this->query;
+    $query = $this->query;
+    // check for a defined select, else select *
+    if(strpos($this->query, 'SELECT') !== false){
+      // do nothing
+    } else {
+      $query = 'SELECT * FROM '.$this->query;
+    }
+
+    $object = json_decode(json_encode(mysqli_fetch_all($this->con->query($query), MYSQLI_ASSOC)), FALSE);
+    $this->con->close();
+    return $object;
   }
 
 
   public function first(){
-    return $this->query.' ORDER BY id DESC LIMIT 1';
-    echo $this->query;
+    $query = $this->query.' LIMIT 1';
+    // check for a defined select, else select *
+    if(strpos($this->query, 'SELECT') !== false){
+      // do nothing
+    } else {
+      $query = 'SELECT * FROM '.$this->query;
+    }
+
+    $object = json_decode(json_encode(mysqli_fetch_all($this->con->query($query), MYSQLI_ASSOC)), FALSE);
+    $this->con->close();
+    return $object;
   }
 }

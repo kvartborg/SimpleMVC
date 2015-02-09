@@ -1,6 +1,9 @@
 <h1>Hello world!</h1>
 
 <?php
-  $test = DB::query('SELECT * FROM users');
-    var_dump($test);
+  $results = DB::table('users')->get();
+
+  foreach ($results as $result) {
+    echo $result->firstname.' - '.$result->email."<br>";
+  }
 ?>

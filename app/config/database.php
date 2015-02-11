@@ -4,9 +4,9 @@
 // ------------------------------------
 
 return array(
-  'host'      => 'skemax.com.mysql',
-  'database'  => 'skemax_com',
-  'username'  => 'skemax_com',
+  'host'      => 'localhost',
+  'database'  => 'mvc',
+  'username'  => 'mvc',
   'password'  => '7cba624f7c1',
   'prefix'    => '',
 );

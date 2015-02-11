@@ -1,9 +1,9 @@
 <h1>Hello world!</h1>
 
 <?php
-  $results = DB::table('users')->where('id', '>', 0)->get();
+	$users = DB::table('users')->where('id', '>', 1)->get();
 
-  foreach ($results as $result) {
-    echo $result->firstname.' - '.$result->email."<br>";
-  }
+	foreach ($users as $key => $user) {
+		echo $user->id.' - '.$user->name.'<br>';
+	}
 ?>

@@ -19,7 +19,8 @@ class DB {
     $this->username = $input['username'];
     $this->password = $input['password'];
     $this->prefix   = $input['prefix'];
-    $this->connect();
+    if($this->database != '' && $this->username != '')
+      $this->connect();
     $this->query = $query;
   }
 
@@ -35,7 +36,15 @@ class DB {
 
 
   protected function query($str){
-    $object = json_decode(json_encode(mysqli_fetch_all($this->con->query($str), MYSQLI_ASSOC)), FALSE);
+    $data = array();
+    $result = $this->con->query($str);
+    
+    while($row = $result->fetch_assoc()){
+      array_push($data, $row);
+    }
+
+    $object = json_decode(json_encode($data));
+    $this->con->close();
     return $object;
   }
 
@@ -46,10 +55,10 @@ class DB {
   }
 
 
-  protected function select($selects = array()){
+  protected function select($selects = []){
     $n = count($selects);
     if(count($selects)){
-      $result;
+      $result = '';
       foreach($selects as $key=>$select){
         $result .= $select;
         if($key < ($n-1)){
@@ -62,7 +71,12 @@ class DB {
   }
 
 
-  protected function where($key, $operator = '=', $value){
+  protected function where($key, $operator = '=', $value = ''){
+
+    if($value == ''){
+      $value = $operator;
+      $operator = '=';
+    }
 
     if(strpos($this->query, 'WHERE') !== false){
       return new DB($this->query." AND ".$key." ".$operator." '".$value."'");
@@ -86,22 +100,36 @@ class DB {
       $query = 'SELECT * FROM '.$this->query;
     }
 
-    $object = json_decode(json_encode(mysqli_fetch_all($this->con->query($query), MYSQLI_ASSOC)), FALSE);
+    $data = array();
+    $result = $this->con->query($query);
+    
+    while($row = $result->fetch_assoc()){
+      array_push($data, $row);
+    }
+
+    $object = json_decode(json_encode($data));
     $this->con->close();
     return $object;
   }
 
 
   public function first(){
-    $query = $this->query.' LIMIT 1';
     // check for a defined select, else select *
     if(strpos($this->query, 'SELECT') !== false){
       // do nothing
+      $query = $this->query.' LIMIT 1';
     } else {
-      $query = 'SELECT * FROM '.$this->query;
+      $query = 'SELECT * FROM '.$this->query.' LIMIT 1';
+    }
+    
+    $data = array();
+    $result = $this->con->query($query);
+    
+    while($row = $result->fetch_assoc()){
+      array_push($data, $row);
     }
 
-    $object = json_decode(json_encode(mysqli_fetch_all($this->con->query($query), MYSQLI_ASSOC)), FALSE);
+    $object = json_decode(json_encode($data));
     $this->con->close();
     return $object;
   }

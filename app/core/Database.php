@@ -1,5 +1,14 @@
 <?php
 
+/*
+| ------------------------------------------------------------------
+| Database
+| ------------------------------------------------------------------
+|
+| This class is an easy way to build powerful queries. 
+| 
+*/
+
 class DB {
 
   protected $host;
@@ -25,6 +34,17 @@ class DB {
   }
 
 
+  /*
+  | ------------------------------------------------------------------
+  | Connect to the database
+  | ------------------------------------------------------------------
+  |
+  | This method runs as part of the construct function at every query
+  | and establishes a connection to the database via the data from
+  | the config file.
+  | 
+  */
+
   protected function connect(){
     // Create connection
     $this->con = new mysqli($this->host, $this->username, $this->password, $this->database);
@@ -34,6 +54,18 @@ class DB {
     }
   }
 
+
+  /*
+  | ------------------------------------------------------------------
+  | Raw query
+  | ------------------------------------------------------------------
+  |
+  | This method enables the user to create a normal query.
+  | But its not recommended to use.
+  |
+  | This method takes a string
+  | 
+  */
 
   protected function query($str){
     $data = array();
@@ -49,11 +81,40 @@ class DB {
   }
 
 
+  /*
+  | ------------------------------------------------------------------
+  | Table 
+  | ------------------------------------------------------------------
+  |
+  | This method defines the table which the other DB Methods
+  | relay on. So every DB method needs this at the start
+  | of a call, except the raw query method
+  |
+  | The table method takes a string
+  | 
+  */
+
   protected function table($table){
-    $this->query = $table;
+    if ($this->prefix != '')
+      $this->query = $this->prefix.'_'.$table;
+    else 
+      $this->query = $table;
     return new DB($this->query);
   }
 
+
+  /*
+  | ------------------------------------------------------------------
+  | Select 
+  | ------------------------------------------------------------------
+  |
+  | This method is placed after the table method and selects the
+  | columns to return from the database. 
+  |
+  | The select method takes an array of the columns to return 
+  | from DB (Array)
+  | 
+  */
 
   protected function select($selects = []){
     $n = count($selects);
@@ -71,6 +132,22 @@ class DB {
   }
 
 
+  /*
+  | ------------------------------------------------------------------
+  | Where 
+  | ------------------------------------------------------------------
+  |
+  | This method selects which data to pull from the database. The
+  | where method should be placed behind the select method, and
+  | to define more than one where on a query, simply add add a
+  | where method more.
+  |
+  | The where method takes a key (String), 
+  | an oprator which by default is '=' (String)
+  | and the value to compare it to (String)
+  | 
+  */
+
   protected function where($key, $operator = '=', $value = ''){
 
     if($value == ''){
@@ -86,10 +163,35 @@ class DB {
   }
 
 
+  /*
+  | ------------------------------------------------------------------
+  | Order by 
+  | ------------------------------------------------------------------
+  |
+  | The orderBy method are includeded after the where, and return
+  | the data in the order you want.
+  |
+  | The orderBy method takes the column to order by (String), and
+  | in which way it should be ordered (String) 
+  | 
+  */
+
   protected function orderBy($str, $type){
     return new DB($this->query.' ORDER BY '.$str.' '.$type);
   }
 
+
+  /*
+  | ------------------------------------------------------------------
+  | Get the DATA!! 
+  | ------------------------------------------------------------------
+  |
+  | This method returns the data in an object formatted form and is
+  | ready to be put into a foreach loop for easy listing.
+  | 
+  | The get method should all ways be at the end of the database call
+  | 
+  */
 
   public function get(){
     $query = $this->query;
@@ -103,8 +205,10 @@ class DB {
     $data = array();
     $result = $this->con->query($query);
     
-    while($row = $result->fetch_assoc()){
-      array_push($data, $row);
+    if($result){
+      while($row = $result->fetch_assoc()){
+        array_push($data, $row);
+      }
     }
 
     $object = json_decode(json_encode($data));
@@ -112,6 +216,17 @@ class DB {
     return $object;
   }
 
+
+  /*
+  | ------------------------------------------------------------------
+  | Get first row of data
+  | ------------------------------------------------------------------
+  |
+  | This method has almost the same function as get(), but it only 
+  | returns the first row of a call to the database. This method 
+  | should be used if you now you only are returning one row. 
+  | 
+  */
 
   public function first(){
     // check for a defined select, else select *
@@ -125,12 +240,58 @@ class DB {
     $data = array();
     $result = $this->con->query($query);
     
-    while($row = $result->fetch_assoc()){
-      array_push($data, $row);
+    if($result){
+      while($row = $result->fetch_assoc()){
+        array_push($data, $row);
+      }
     }
 
     $object = json_decode(json_encode($data));
     $this->con->close();
     return $object;
   }
+
+
+  /*
+  | ------------------------------------------------------------------
+  | Insert a new row of data
+  | ------------------------------------------------------------------
+  |
+  | This method is taking a dictionary where the key is the columns
+  | the value pair is put into
+  | 
+  */
+
+  public function insert($array = []){
+    // construct query string
+    $n = count($array);
+    $i = 1;
+    $col = '';
+    $val = '';
+    foreach($array as $key => $value){
+      if($i < $n){
+        $col .= $key.', ';
+        $val .= "'".$value."'". ', ';
+      } else {
+        $col .= $key;
+        $val .= "'".$value."'";
+      }
+      $i++;
+    }
+
+    $sql = 'INSERT INTO '.$this->query.' ('.$col.') VALUES ('.$val.')';
+
+    // run
+    $this->con->query($sql);
+    $this->con->close();
+  }
 }
+
+
+
+
+
+
+
+
+

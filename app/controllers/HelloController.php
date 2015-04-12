@@ -13,6 +13,7 @@ class HelloController extends BaseController {
   }
 
   public function test(){
-    echo 'test';
+
+    echo Date::parse('21-04-2015');
   }
 }

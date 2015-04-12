@@ -1,5 +1,4 @@
 <?php
-require_once "Database.php";
 
 class View {
   public function make($view, $data = array()){

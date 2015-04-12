@@ -2,9 +2,8 @@
 // ------------------------------------ 
 //	Base Controller
 // ------------------------------------
-require_once "View.php";
 
-class BaseController extends View {
+class BaseController {
 
 	public function notFound(){
     View::make('/error/404');

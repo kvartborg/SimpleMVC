@@ -6,8 +6,9 @@ class HelloController extends BaseController {
     
     // model
     $user = $this->model('User');
+    $users = DB::table('users')->get();
 
     // make page
-    View::make('index', $user);
+    return View::make('index', ['users' => $users]);
   }
 }

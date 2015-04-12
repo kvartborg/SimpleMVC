@@ -67,7 +67,7 @@ class DB {
   | 
   */
 
-  protected function query($str){
+  public function query($str){
     $data = array();
     $result = $this->con->query($str);
     
@@ -94,7 +94,7 @@ class DB {
   | 
   */
 
-  protected function table($table){
+  public function table($table){
     if ($this->prefix != '')
       $this->query = $this->prefix.'_'.$table;
     else 
@@ -116,7 +116,7 @@ class DB {
   | 
   */
 
-  protected function select($selects = []){
+  public function select($selects = []){
     $n = count($selects);
     if(count($selects)){
       $result = '';
@@ -148,7 +148,7 @@ class DB {
   | 
   */
 
-  protected function where($key, $operator = '=', $value = ''){
+  public function where($key, $operator = '=', $value = ''){
 
     if($value == ''){
       $value = $operator;
@@ -176,7 +176,7 @@ class DB {
   | 
   */
 
-  protected function orderBy($str, $type){
+  public function orderBy($str, $type){
     return new DB($this->query.' ORDER BY '.$str.' '.$type);
   }
 
@@ -268,13 +268,14 @@ class DB {
     $i = 1;
     $col = '';
     $val = '';
+
     foreach($array as $key => $value){
       if($i < $n){
         $col .= $key.', ';
-        $val .= "'".$value."'". ', ';
+        $val .= "'".addslashes($value)."'". ', ';
       } else {
         $col .= $key;
-        $val .= "'".$value."'";
+        $val .= "'".addslashes($value)."'";
       }
       $i++;
     }
@@ -282,8 +283,10 @@ class DB {
     $sql = 'INSERT INTO '.$this->query.' ('.$col.') VALUES ('.$val.')';
 
     // run
-    $this->con->query($sql);
+    $result = $this->con->query($sql);
     $this->con->close();
+    
+    return $result;
   }
 }
 

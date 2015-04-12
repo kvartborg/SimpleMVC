@@ -22,12 +22,12 @@ class DB {
 
 
   function __construct($query = ''){
-    $input = include __DIR__.'../../config/database.php';
-    $this->host = $input['host'];
-    $this->database = $input['database'];
-    $this->username = $input['username'];
-    $this->password = $input['password'];
-    $this->prefix   = $input['prefix'];
+    $config = include __DIR__.'../../config/database.php';
+    $this->host = $config['host'];
+    $this->database = $config['database'];
+    $this->username = $config['username'];
+    $this->password = $config['password'];
+    $this->prefix   = $config['prefix'];
     if($this->database != '' && $this->username != '')
       $this->connect();
     $this->query = $query;

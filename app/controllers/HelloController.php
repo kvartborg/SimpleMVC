@@ -11,4 +11,8 @@ class HelloController extends BaseController {
     // make page
     return View::make('index', ['users' => $users]);
   }
+
+  public function test(){
+    echo 'test';
+  }
 }

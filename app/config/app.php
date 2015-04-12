@@ -5,34 +5,28 @@
 
 return array(
 
-  // ----------------------------------
-  // Set the default controller/home controller
 
   'controller' => 'hello',
-
-  // ----------------------------------
-  // Set the default method
-
   'method' => 'index',
 
-  // ----------------------------------
-  // Date format
 
+  // ----------------------------------
+  //  Timezone & Date format
+  // ----------------------------------
+  
+  'timezone' => 'UTC',
   'date_format' => 'Y-m-d H:i:s',
 
-  // ----------------------------------
-  // Set timezone
-
-  'timezone' => 'UTC',
-
 
   // ----------------------------------
-  // HTTPS
-  'ssl' => false,
+  //  HTTPS
+  // ----------------------------------
+  'ssl' => true,
 
 
   // ----------------------------------
   // Classmap for core classes
+  // ----------------------------------
   'classmap' => array(
     'Database',
     'View',

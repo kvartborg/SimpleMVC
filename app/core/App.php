@@ -12,16 +12,13 @@ class App {
 	public function __construct(){
 		$url = $this->parseUrl();
 
+		$settings = include __DIR__."../../config/app.php";
 
-		//--------------------------------------------------
-		// get the default settings
-		$setting = include __DIR__."../../config/app.php";
-
-		$this->controller = $setting['controller'];
-		$this->method = $setting['method'];
-		
-		//--------------------------------------------------
-		// check controller for existence
+		// set settings
+		$this->sslCheck($settings);
+		$this->setTimezone($settings);
+		$this->controller = $settings['controller'];
+		$this->method = $settings['method'];
 
 		if(file_exists('../app/controllers/'.ucfirst($url[0]).'Controller.php')){
 			$this->controller = ucfirst($url[0]).'Controller';
@@ -34,10 +31,6 @@ class App {
 
 		$this->controller = new $this->controller;
 
-
-		//--------------------------------------------------
-		// check for method existence within the controller
-
 		if(method_exists($this->controller, $url[1])){
 			$this->method = $url[1];
 			unset($url[1]);
@@ -47,21 +40,31 @@ class App {
 				$this->method = 'notFound';
 			}
 		}
+		
+		$this->params = $url ? array_values($url) : [];
 
-
-		//--------------------------------------------------
-		// define parameters
-
-		$this->params = $url ? array_values($url) : array();
-
-		$obj = array($this->controller, $this->method);
+		$obj = [$this->controller, $this->method];
 		call_user_func_array($obj, $this->params);
 	}
 
 
-	public function parseUrl(){
+	protected function parseUrl(){
 		if(isset($_GET['url'])){
 			return $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
 		}
+	}
+
+
+	protected function sslCheck($settings){
+		// SSL
+		if($_SERVER['HTTPS'] != 'on' && $settings['ssl']){
+			header("Location: https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+			exit();
+		}
+	}
+
+
+	protected function setTimezone($settings){
+		date_default_timezone_set($settings['timezone']);
 	}
 }

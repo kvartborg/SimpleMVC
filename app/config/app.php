@@ -27,6 +27,11 @@ return array(
 
 
   // ----------------------------------
+  // HTTPS
+  'ssl' => false,
+
+
+  // ----------------------------------
   // Classmap for core classes
   'classmap' => array(
     'Database',

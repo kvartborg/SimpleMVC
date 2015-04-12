@@ -9,7 +9,6 @@ require_once "core/BaseController.php";
 
 $input = include __DIR__.'/config/app.php';
 for($i = 0; $i < count($input['classmap']); $i++){
-  echo "core/".$input['classmap'][$i].'.php<br>';
   require_once "core/".$input['classmap'][$i].'.php';
 }
 

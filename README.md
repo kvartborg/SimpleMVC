@@ -92,3 +92,10 @@ DB::query("SELECT * FROM users");
 ```
 
 ## Time/Date handler
+
+##### now()
+```
+// Get current time 
+Time::now();
+```
+

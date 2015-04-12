@@ -7,8 +7,13 @@
 require_once "core/App.php";
 require_once "core/BaseController.php";
 
-// custom classes
-// require_once "core/cunstomClass.php";
+
+$input = include __DIR__.'/config/app.php';
+for($i = 0; $i < count($input['classmap']); $i++){
+  echo "core/".$input['classmap'][$i].'.php<br>';
+  require_once "core/".$input['classmap'][$i].'.php';
+}
+
 
 // Create new instance of app
 $app = new App;

@@ -22,7 +22,15 @@ return array(
 
   // ----------------------------------
   // Set timezone
-  
+
   'timezone' => 'UTC',
+
+
+  // ----------------------------------
+  // Classmap for core classes
+  'classmap' => array(
+    'Database',
+    'View',
+  ),
 
 );

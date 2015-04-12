@@ -31,6 +31,7 @@ return array(
   'classmap' => array(
     'Database',
     'View',
+    'Time',
   ),
 
 );

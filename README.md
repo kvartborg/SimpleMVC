@@ -94,8 +94,85 @@ DB::query("SELECT * FROM users");
 ## Time/Date handler
 
 ##### now()
-```
+```php
 // Get current time 
 Time::now();
+Date::now();
 ```
+
+##### parse()
+```php
+// parse a timestanp or time
+Time::parse('2015-05-12');
+Date::parse(1429574400);
+```
+
+##### format()
+```php
+// Format timestamp
+Time::now()->format('d-m-Y H:i');
+```
+
+##### date()
+```php
+// return date only
+Time::now()->date();
+```
+
+##### time()
+```php
+// return time only
+Time::now()->time();
+```
+
+##### addSeconds()
+```php
+// Add seconds to time
+Time::now()->addSeconds(10);
+```
+
+##### addMinutes()
+```php
+// Add Minutes to time
+Time::now()->addMinutes(10);
+```
+
+##### addHours()
+```php
+// Add Hours to time
+Time::now()->addHours(10);
+```
+
+##### addDays()
+```php
+// Add Hours to time
+Time::now()->addDays(10);
+```
+
+##### int()
+```php
+// Return time in int format
+Time::now()->int();
+```
+
+##### gm()
+```php
+// Return time in UTC
+Time::now()->gm();
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

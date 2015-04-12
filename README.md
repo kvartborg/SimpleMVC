@@ -102,7 +102,7 @@ Date::now();
 
 ##### parse()
 ```php
-// parse a timestanp or time
+// parse a timestamp or time
 Time::parse('2015-05-12');
 Date::parse(1429574400);
 ```
@@ -145,7 +145,7 @@ Time::now()->addHours(10);
 
 ##### addDays()
 ```php
-// Add Hours to time
+// Add Days to time
 Time::now()->addDays(10);
 ```
 

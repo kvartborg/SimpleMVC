@@ -1,8 +1,11 @@
 <?php
 require_once "Database.php";
 
-class View Extends DB {
+class View {
   public function make($view, $data = array()){
+
+    // convert the $data array to variables
+    extract($data);
 
     if($view[0] == '/'){
       // do nothing

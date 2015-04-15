@@ -14,7 +14,7 @@ return array(
   //  Timezone & Date format
   // ----------------------------------
   
-  'timezone'    => 'UTC',
+  'timezone'    => 'Europe/Copenhagen',
   'date_format' => 'Y-m-d H:i:s',
 
 

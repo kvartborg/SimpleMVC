@@ -14,12 +14,11 @@ class HelloController extends BaseController {
 
   public function test(){
 
-    $dir = __DIR__.'/../core';
-
-    $files = scandir($dir);
-
-    unset($files[0]);
-    unset($files[1]);
-    var_dump($files);
+    if(Time::now()->int() < Date::now()->addMinutes(10)->int()){
+      echo "passer";
+    } else {
+      echo "passer ikk";
+    }
+    
   }
 }

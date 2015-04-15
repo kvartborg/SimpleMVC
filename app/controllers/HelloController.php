@@ -14,6 +14,12 @@ class HelloController extends BaseController {
 
   public function test(){
 
-    echo Date::parse('21-04-2015');
+    $dir = __DIR__.'/../core';
+
+    $files = scandir($dir);
+
+    unset($files[0]);
+    unset($files[1]);
+    var_dump($files);
   }
 }

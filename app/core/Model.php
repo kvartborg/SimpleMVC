@@ -1,5 +1,5 @@
 <?php
 
-class Models {
-  
+class Model {
+
 }

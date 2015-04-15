@@ -85,6 +85,12 @@ class Time {
   }
 
 
+  public function gm(){
+    $this->return = gmdate($this->format, $this->time);
+    return $this;
+  }
+
+
   public function __toString() {
     if(!$this->return)
       $this->return = date($this->format, $this->time);

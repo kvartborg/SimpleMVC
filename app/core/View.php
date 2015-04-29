@@ -2,7 +2,7 @@
 
 class View {
   
-  public function make($view, $data = array()){
+  public static function make($view, $data = array()){
 
     // convert the $data array to variables
     extract($data);
@@ -13,7 +13,10 @@ class View {
       $view = '/'.$view;
     }
 
-    require_once '../app/views'.$view.'.php';
+    // check for any errors
+    if(count($GLOBALS['errors']) == 0){
+      require_once '../app/views'.$view.'.php';
+    }
   }
   
 }

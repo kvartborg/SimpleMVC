@@ -34,7 +34,7 @@ class Time {
   }
 
 
-  public function format($str){
+  public function format($str = null){
     $this->format = $str;
     return $this;
   }
@@ -83,6 +83,33 @@ class Time {
     $this->time = $this->time + $time;
     return $this;
   }
+  
+
+  public function subSeconds($time){
+    $this->time = $this->time - $time;
+    return $this;
+  }
+
+
+  public function subMinutes($time){
+    $time = $time * 60;
+    $this->time = $this->time - $time;
+    return $this;
+  }
+
+
+  public function subHours($time){
+    $time = $time * 60 * 60;
+    $this->time = $this->time - $time;
+    return $this;
+  }
+
+
+  public function subDays($time){
+    $time = $time * 60 * 60 * 24;
+    $this->time = $this->time - $time;
+    return $this;
+  }
 
 
   public function gm(){
@@ -92,11 +119,14 @@ class Time {
 
 
   public function __toString() {
-    if(!$this->return)
-      $this->return = date($this->format, $this->time);
-    return $this->return;
+    try {
+      if(!$this->return)
+        $this->return = date($this->format, $this->time);
+      return $this->return;
+    } catch (Exception $e){
+      Error::set($e);
+    }
   }
-
 }
 
 class Date extends Time {

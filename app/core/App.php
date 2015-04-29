@@ -31,6 +31,10 @@ class App {
 
 		$this->controller = new $this->controller;
 
+		if(!array_key_exists(1, $url)){
+			$url[1] = $this->method;
+		}
+
 		if(method_exists($this->controller, $url[1])){
 			$this->method = $url[1];
 			unset($url[1]);

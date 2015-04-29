@@ -1,6 +1,7 @@
 <?php
 
 class View {
+  
   public function make($view, $data = array()){
 
     // convert the $data array to variables
@@ -14,4 +15,5 @@ class View {
 
     require_once '../app/views'.$view.'.php';
   }
+  
 }

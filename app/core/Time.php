@@ -13,14 +13,14 @@ class Time {
   }
 
 
-  public function now(){
+  public static function now(){
     $obj = new Time;
     $obj->time = time();
     return $obj;
   }
 
 
-  public function parse($time){
+  public static function parse($time){
     $time = str_replace('/', '-', $time);
     $obj = new Time;
 
@@ -119,13 +119,9 @@ class Time {
 
 
   public function __toString() {
-    try {
-      if(!$this->return)
-        $this->return = date($this->format, $this->time);
-      return $this->return;
-    } catch (Exception $e){
-      Error::set($e);
-    }
+    if(!$this->return)
+      $this->return = date($this->format, $this->time);
+    return $this->return;
   }
 }
 

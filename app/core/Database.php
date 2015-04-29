@@ -94,12 +94,13 @@ class DB {
   | 
   */
 
-  public function table($table){
-    if ($this->prefix != '')
-      $this->query = $this->prefix.'_'.$table;
+  public static function table($table){
+    $obj = new DB;
+    if ($obj->prefix != '')
+      $obj->query = $this->prefix.'_'.$table;
     else 
-      $this->query = $table;
-    return new DB($this->query);
+      $obj->query = $table;
+    return $obj;
   }
 
 

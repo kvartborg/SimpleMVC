@@ -83,7 +83,22 @@ class Time {
     $this->time = $this->time + $time;
     return $this;
   }
-  
+
+
+  public function addYears($time){
+    $n = $time;
+    $year = intval(date('Y', $this->time));
+    $time = 24 * 60 * 60;
+    for ($i = 0; $i < $n; $i++) { 
+      if($this->leapYear($year + $i + 1))
+        $this->time += $time * (365 + 1);
+      else
+        $this->time += $time * 365;
+    } 
+
+    return $this;
+  }
+
 
   public function subSeconds($time){
     $this->time = $this->time - $time;
@@ -112,6 +127,21 @@ class Time {
   }
 
 
+  public function subYears($time){
+    $n = $time;
+    $year = intval(date('Y', $this->time));
+    $time = 24 * 60 * 60;
+    for ($i = 0; $i < $n; $i++) { 
+      if($this->leapYear($year + $i - 1))
+        $this->time -= $time * (365 + 1);
+      else
+        $this->time -= $time * 365;
+    } 
+
+    return $this;
+  }
+
+
   public function gm(){
     $this->return = gmdate($this->format, $this->time);
     return $this;
@@ -123,6 +153,12 @@ class Time {
       $this->return = date($this->format, $this->time);
     return $this->return;
   }
+
+
+  protected function leapYear($year){
+    return ((($year % 4) == 0) && ((($year % 100) != 0) || (($year %400) == 0)));
+  }
+  
 }
 
 class Date extends Time {

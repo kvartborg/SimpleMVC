@@ -1,6 +1,7 @@
 <?php
 
 $GLOBALS['errors'] = [];
+
 function errorHandler($num, $str, $file, $line, $vars){
   if($line){
     array_push($GLOBALS['errors'], [
@@ -30,7 +31,9 @@ function fatalErrorHandler() {
     ]);
   }
 
-  if(count($errors) > 0){
+  $settings = include __DIR__."../../config/app.php";
+
+  if(count($errors) > 0 && $settings['debug']){
     $html = '';
     echo '<h1>Errors</h1>';
     for($i = 0; $i < count($errors); $i++){

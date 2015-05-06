@@ -17,7 +17,7 @@ return array(
   // ----------------------------------
 
   'controller' => 'hello',
-  'method' => 'index',
+  'method' => 'index', // same as action
 
 
   // ----------------------------------

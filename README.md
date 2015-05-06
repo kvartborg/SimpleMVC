@@ -1,9 +1,7 @@
 # Simple MVC
-
 Simple MVC is a simplistic php framework, its very compact, customizable and easy to use.
 
 ## Setup
-
 Download or copy this repository to you domain or project folder, no need for pointing into the `public` folder. But you can always do it if posible. 
 
 #### Set the default controller
@@ -23,7 +21,6 @@ return array(
 ```
 
 ## Views
-
 Render views with this function.
 ```php
 // render index.php
@@ -37,9 +34,7 @@ View::make('index.php', ['key' => 'value']);
 ```
 
 ## Query Builder
-
 ##### structure
-
 ```php
 // This i an example of how to structure a query
 DB::table('users')
@@ -50,7 +45,6 @@ DB::table('users')
 ```
 
 ##### table()
-
 ```php
 // get all records from table
 DB::table('users')->get();
@@ -92,7 +86,6 @@ DB::query("SELECT * FROM users");
 ```
 
 ## Time/Date handler
-
 ##### now()
 ```php
 // Get current time 

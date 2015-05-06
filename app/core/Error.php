@@ -34,8 +34,16 @@ function fatalErrorHandler() {
   $settings = include __DIR__."../../config/app.php";
 
   if(count($errors) > 0 && $settings['debug']){
-    $html = '';
-    echo '<h1>Errors</h1>';
+    $html = '<html>';
+
+    $html .= '<head>'
+              .'<style>'
+                .'body { overflow: hidden; font-family: helvetica, verdana }'
+                .'#view { background: #f8f8f8; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: auto; }'
+                .'#errors { width: 80%; margin-left: 10%;  }'
+              .'</style>'
+            .'</head><body><div id="view"><div id="errors">';
+
     for($i = 0; $i < count($errors); $i++){
       $error = $errors[$i];
       $html .= '<p>'
@@ -43,6 +51,8 @@ function fatalErrorHandler() {
                 .'<small>'.$error['file'].'</small>'
              .'</p><hr>';
     }
+
+    $html .= '</div></div></body></html>';
 
     echo $html;
   }

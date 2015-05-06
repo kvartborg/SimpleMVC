@@ -57,3 +57,12 @@ function fatalErrorHandler() {
     echo $html;
   }
 }
+
+
+
+class Error {
+  public static function set($str, $file = __FILE__, $line = __LINE__){
+    $GLOBALS['errors'][] = ['num' => 0, 'str' => $str, 'file' => $file, 'line' => $line, 'vars' => $GLOBALS];
+  }
+}
+

@@ -13,6 +13,11 @@ class Time {
   }
 
 
+  protected function leapYear($year){
+    return ((($year % 4) == 0) && ((($year % 100) != 0) || (($year %400) == 0)));
+  }
+
+
   public static function now(){
     $obj = new Time;
     $obj->time = time();
@@ -153,12 +158,6 @@ class Time {
       $this->return = date($this->format, $this->time);
     return $this->return;
   }
-
-
-  protected function leapYear($year){
-    return ((($year % 4) == 0) && ((($year % 100) != 0) || (($year %400) == 0)));
-  }
-  
 }
 
 class Date extends Time {

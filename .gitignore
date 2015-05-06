@@ -1,6 +1,3 @@
-app/controllers/*
-app/views/*
-app/models/*
 public/*
 .DS_Store
 *.sublime-project

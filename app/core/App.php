@@ -3,6 +3,7 @@
 //	App
 //--------------------------------------------------
 
+
 class App {
 
 	protected $controller;
@@ -10,6 +11,7 @@ class App {
 	protected $params = array();
 
 	public function __construct(){
+
 		$url = $this->parseUrl();
 
 		$settings = include __DIR__."../../config/app.php";
@@ -20,13 +22,13 @@ class App {
 		$this->controller = $settings['controller'];
 		$this->method = $settings['method'];
 
-		if(file_exists('../app/controllers/'.ucfirst($url[0]).'Controller.php')){
+		if(file_exists('app/controllers/'.ucfirst($url[0]).'Controller.php')){
 			$this->controller = ucfirst($url[0]).'Controller';
 			unset($url[0]);
-			require_once '../app/controllers/'.$this->controller.'.php';
+			require_once 'app/controllers/'.$this->controller.'.php';
 		} else {
 			$this->controller = 'BaseController';
-			require_once '../app/core/BaseController.php';
+			require_once 'app/core/BaseController.php';
 		}
 
 		$this->controller = new $this->controller;

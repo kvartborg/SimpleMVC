@@ -10,11 +10,9 @@ class HelloController extends BaseController {
     ]);
   }
 
-  
 
   public function test(){
-    $time = Time::parse();
-
+    $time = Time::now();
     echo $time;
   }
 }

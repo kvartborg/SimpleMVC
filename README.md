@@ -4,6 +4,8 @@ Simple MVC is a simplistic php framework, its very compact, customizable and eas
 ## Setup
 Download or copy this repository to you domain or project folder, no need for pointing into the `public` folder. But you can always do it if posible. 
 
+#### Cache
+
 #### Set the default controller
 This is the equivalent of the "index page"/"homepage".
 You can change the default controller `app/config/app.php`, default mehod should always be set to `index`.
@@ -158,7 +160,13 @@ Time::now()->gm();
 
 ## Models
 
+## Session
 
+## Cookies
+
+## Redis
+
+## 
 
 
 

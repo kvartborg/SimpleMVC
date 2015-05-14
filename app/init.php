@@ -27,5 +27,8 @@ for($i = 0; $i < count($files); $i++) {
   require_once __DIR__."/models/".$files[$i];
 }
 
+// include routes
+require_once __DIR__."/routes.php";
+
 // Create new instance of app
 $app = new App;

@@ -137,19 +137,22 @@ class Route {
     if($error == 1){
       if($routes->baseUrl != ''){
         if(strpos($routes->url, $routes->baseUrl) !== false){
-          
-          $url = str_replace($routes->baseUrl, '', $routes->url);
-          $url = explode('/', $url);
-          unset($url[0]);
-          if(count($url) > 0){
-            $routes->method = $url[1];
-            unset($url[1]);
-            $routes->params = $url ? array_values($url) : [];
-          } else {
-            $routes->method = 'index';
-          }
+          if(substr($routes->url, 0, strlen($routes->baseUrl)) == $routes->baseUrl){
+            
+            $url = str_replace($routes->baseUrl, '', $routes->url);
+            $url = explode('/', $url);
 
-          $error = $routes->controller();
+            unset($url[0]);
+            if(count($url) > 0){
+              $routes->method = $url[1];
+              unset($url[1]);
+              $routes->params = $url ? array_values($url) : [];
+            } else {
+              $routes->method = 'index';
+            }
+
+            $error = $routes->controller();
+          }
         }
       }
     }
@@ -171,7 +174,8 @@ class Route {
     if(file_exists('app/controllers/'.$this->controller.'.php')){
       require_once 'app/controllers/'.$this->controller.'.php';
     } else {
-      Error::set('Failed to find controller <b>'.$this->controller.'</b>', __FILE__, __LINE__);
+      if(!$GLOBALS['settings']['404'])
+        Error::set('Failed to find controller <b>'.$this->controller.'</b>', __FILE__, __LINE__);
     }
 
     $controller = $this->controller;
@@ -183,7 +187,8 @@ class Route {
       call_user_func_array($obj, $this->params);
       return 0;
     } else {
-      Error::set('Failed to find method '.$this->method.', in '.$controller, __FILE__, __LINE__);
+      if(!$GLOBALS['settings']['404'])
+        Error::set('Failed to find method '.$this->method.', in '.$controller, __FILE__, __LINE__);
       return 1;
     }
   }

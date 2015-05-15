@@ -73,22 +73,26 @@ class Route {
         $r_url = explode('/', $routes->url);
         unset($url[0]);
         unset($r_url[0]);
-        for($i = 1; $i < (count($r_url) + 1); $i++){
-          if(strpos($url[$i], ':') !== false){
-            $vars[$url[$i]] = $r_url[$i];
-            $url[$i] = $r_url[$i];
+        if(count($url) >= count($r_url)){
+          for($i = 1; $i < (count($r_url) + 1); $i++){
+            if(strpos($url[$i], ':') !== false){
+              $vars[$url[$i]] = $r_url[$i];
+              $url[$i] = $r_url[$i];
+            }
           }
-        }
 
-        // check for optional vars
-        for($i = 1; $i < (count($url) + 1); $i++){
-          if(strpos($url[$i], ':') !== false && strpos($url[$i], '?') !== false){
-            $vars[$url[$i]] = null;
-            unset($url[$i]);
+          // check for optional vars
+          for($i = 1; $i < (count($url) + 1); $i++){
+            if(strpos($url[$i], ':') !== false && strpos($url[$i], '?') !== false){
+              $vars[$url[$i]] = null;
+              unset($url[$i]);
+            }
           }
-        }
 
-        $route->url = '/'.implode('/', $url);
+          $route->url = '/'.implode('/', $url);
+        } else {
+          $vars = [];
+        }
       } else {
         $vars = [];
       }

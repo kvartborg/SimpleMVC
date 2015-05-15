@@ -33,7 +33,7 @@ class Route {
   }
 
 
-  public static function set($url, $func){
+  public static function set($url, $func, $method = 'GET'){
     if(substr($url, 0, 1) != '/')
       $url = '/'.$url;
 
@@ -53,7 +53,7 @@ class Route {
 
 
     $GLOBALS['routes'][] = (object)[
-      'method' => 'get', 
+      'method' => strtoupper($method), 
       'url' => $url,
       'func' => $func,
       'vars' => $vars,
@@ -97,7 +97,7 @@ class Route {
         $vars = [];
       }
 
-      if($routes->url == $route->url){
+      if($routes->url == $route->url && $route->method == $_SERVER['REQUEST_METHOD']){
         // static
         $error = 0;
         if(is_callable($route->func)){
@@ -127,7 +127,7 @@ class Route {
           }
         }
       } else {
-        if(strpos($routes->url, $route->url) !== false && is_string($route->func) && !strpos($route->func, '@')){
+        if(strpos($routes->url, $route->url) !== false && is_string($route->func) && !strpos($route->func, '@') && $route->method == $_SERVER['REQUEST_METHOD']){
           $routes->controller = $route->func;
           $routes->baseUrl = $route->url;
         }

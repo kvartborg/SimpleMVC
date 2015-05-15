@@ -6,6 +6,8 @@ class App {
   public function __construct(){
     $settings = include __DIR__."../../config/app.php";
 
+    $GLOBALS['settings'] = $settings;
+
     // set settings
     $this->sslCheck($settings);
     $this->setTimezone($settings);

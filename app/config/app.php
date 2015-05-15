@@ -13,14 +13,6 @@ return array(
 
 
   // ----------------------------------
-  //  Default controller
-  // ----------------------------------
-
-  'controller' => 'hello',
-  'method' => 'index', // same as action
-
-
-  // ----------------------------------
   //  Timezone & Date format
   // ----------------------------------
   
@@ -35,12 +27,7 @@ return array(
 
 
   // ----------------------------------
-  // Classmap for core classes
+  //  Error overwrite
   // ----------------------------------
-  'classmap' => array(
-    'Database',
-    'View',
-    'Time',
-  ),
-
+  '404' => true,
 );

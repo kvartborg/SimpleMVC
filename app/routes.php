@@ -1,7 +1,7 @@
 <?php
 
 Route::set('/', function(){
-  echo "";
+  return View::make('index', ['test' => 'hello']);
 });
 
 
@@ -10,10 +10,15 @@ Route::set('/hello/jæs', function(){
 });
 
 
-Route::set('/test/:var', function($var = 0){
+Route::set('/t/:var?', function($var = 0){
   echo 'Test route!! '.$var;
 });
 
 
-Route::set('app/test', 'HelloController');
+Route::set('/h', 'HelloController');
 Route::set('shop', 'TestController');
+
+
+Route::set('/login', function(){
+  echo "login";
+});

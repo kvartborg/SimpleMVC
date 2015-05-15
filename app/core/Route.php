@@ -112,6 +112,13 @@ class Route {
             $routes->controller = $str[0];
             $routes->method = $str[1];
 
+            if(count($vars)){
+              foreach ($vars as $var) {
+                $v[] = $var;
+              }
+              $routes->params = $v ? array_values($v) : [];
+            }
+
             $error = $routes->controller();
           } else {
             $error = 1;
@@ -147,8 +154,10 @@ class Route {
       }
     }
 
-    if($error == 1)
+    if($error == 1 && !$GLOBALS['settings']['404'])
       Error::set('Failed to find Route', __FILE__, __LINE__);
+    elseif($error == 1 && $GLOBALS['settings']['404'])
+      return View::make('error/404');
   }
 
 
@@ -165,6 +174,7 @@ class Route {
       Error::set('Failed to find controller <b>'.$this->controller.'</b>', __FILE__, __LINE__);
     }
 
+    $controller = $this->controller;
     $this->controller = new $this->controller;
 
     $obj = [$this->controller, $this->method];
@@ -173,7 +183,7 @@ class Route {
       call_user_func_array($obj, $this->params);
       return 0;
     } else {
-      Error::set('Failed to find method <b>'.$this->method.'</b>', __FILE__, __LINE__);
+      Error::set('Failed to find method '.$this->method.', in '.$controller, __FILE__, __LINE__);
       return 1;
     }
   }

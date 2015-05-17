@@ -33,6 +33,16 @@ class Route {
   }
 
 
+  public static function post($url, $func){
+    Route::set($url, $func, 'POST');
+  }
+
+
+  public static function get($url, $func){
+    Route::set($url, $func, 'GET');
+  }
+
+
   public static function set($url, $func, $method = 'GET'){
     if(substr($url, 0, 1) != '/')
       $url = '/'.$url;

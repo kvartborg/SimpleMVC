@@ -170,7 +170,7 @@ class Route {
     if($error == 1 && !$GLOBALS['settings']['404'])
       Error::set('Failed to find Route', __FILE__, __LINE__);
     elseif($error == 1 && $GLOBALS['settings']['404'])
-      return View::make('error/404');
+      return View::make('errors/404');
   }
 
 

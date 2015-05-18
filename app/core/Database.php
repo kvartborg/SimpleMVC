@@ -22,7 +22,7 @@ class DB {
 
 
   function __construct($query = ''){
-    $config = include __DIR__.'../config/database.php';
+    $config = include __DIR__.'/../config/database.php';
     $this->host = $config['host'];
     $this->database = $config['database'];
     $this->username = $config['username'];

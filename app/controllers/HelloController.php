@@ -12,7 +12,7 @@ class HelloController extends BaseController {
   }
 
 
-  public function test(){
+  public function test2(){
     $time = Time::now();
     echo $time;
   }

@@ -2,7 +2,7 @@
 
 class TestController extends BaseController {
   
-  public function index(){
-    echo "test";
+  public function test($test, $var){
+    echo "test: ".$test.' '.$var;
   } 
 }

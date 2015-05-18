@@ -4,10 +4,9 @@ class HelloController extends BaseController {
 	
 	public function index(){
     // make page
-    $test = array();
-    echo "test";
+    $users = DB::table('users')->get();
     return View::make('index', [
-      'test' => $test
+      'users' => $users
     ]);
   }
 
@@ -15,5 +14,13 @@ class HelloController extends BaseController {
   public function test2(){
     $time = Time::now();
     echo $time;
+  }
+
+  public function addtest($test){
+    echo $test;
+  }
+
+  public function server(){
+    var_dump($_SERVER);
   }
 }

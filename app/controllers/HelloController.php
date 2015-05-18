@@ -4,10 +4,7 @@ class HelloController extends BaseController {
 	
 	public function index(){
     // make page
-    $users = DB::table('users')->get();
-    return View::make('index', [
-      'users' => $users
-    ]);
+    echo "hello"
   }
 
 

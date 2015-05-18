@@ -12,6 +12,9 @@ class App {
     $this->sslCheck($settings);
     $this->setTimezone($settings);
 
+    // start session
+    session_start();
+
     Route::find();
   }
 

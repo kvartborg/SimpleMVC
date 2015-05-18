@@ -11,6 +11,11 @@ class Cookie {
   }
 
 
+  public static function get($name, $path = '/'){
+    return $_COOKIE[$name];
+  }
+
+
   public static function forget($name, $path = '/'){
     if(isset($_COOKIE[$name])){
       unset($_COOKIE[$name]);

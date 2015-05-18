@@ -4,7 +4,7 @@ class HelloController extends BaseController {
 	
 	public function index(){
     // make page
-    echo "hello"
+    echo "hello";
   }
 
 

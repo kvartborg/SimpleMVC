@@ -18,5 +18,9 @@ class View {
       require_once 'app/views'.$view.'.php';
     }
   }
+
+  public static function render($view, $data = array()){
+    View::make($view, $data);
+  }
   
 }

@@ -12,7 +12,12 @@ class Cookie {
 
 
   public static function get($name, $path = '/'){
-    return $_COOKIE[$name];
+    if(isset($_COOKIE[$name])){
+      return $_COOKIE[$name];
+    } else {
+      Error::set('Cookie "'.$name.'" not found', __FILE__, __LINE__);
+      return false;
+    }
   }
 
 

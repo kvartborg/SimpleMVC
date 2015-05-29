@@ -149,7 +149,7 @@ class Route {
         if(strpos($routes->url, $routes->baseUrl) !== false){
           if(substr($routes->url, 0, strlen($routes->baseUrl)) == $routes->baseUrl){
             
-            $url = str_replace($routes->baseUrl, '', $routes->url);
+            $url = substr($routes->url, strlen($routes->baseUrl));
             $url = explode('/', $url);
 
             unset($url[0]);

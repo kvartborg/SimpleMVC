@@ -2,9 +2,17 @@
 
 class Response {
   
-  public static function json($array){
+  /**
+   * Return data in json format
+   * 
+   * @param  mixed $data
+   * 
+   * @return null 
+   */
+  
+  public static function json($data){
     header('Content-Type: application/json');
-    echo json_encode($array, JSON_PRETTY_PRINT);
+    echo json_encode($data, JSON_PRETTY_PRINT);
   }
 
 }

@@ -2,22 +2,32 @@
 
 class App {
 
+  /**
+   * Setting up App with the correct settings and tells the routing system to search for the route
+   *
+   * @return null
+   */
 
   public function __construct(){
     $settings = include __DIR__."../../config/app.php";
 
     $GLOBALS['settings'] = $settings;
 
-    // set settings
     $this->sslCheck($settings);
     $this->setTimezone($settings);
 
-    // start session
+
     session_start();
 
     Route::find();
   }
 
+
+  /**
+   * Parse the url and separate to sections by / 
+   * 
+   * @return array $url Which contains the URI in seperated parts
+   */
 
   protected function parseUrl(){
     if(isset($_GET['url'])){
@@ -25,6 +35,14 @@ class App {
     }
   }
 
+
+  /**
+   * Check for https else redirect to the correct
+   * 
+   * @param array $settings Takes the ssl from the app config file
+   *
+   * @return null Redirects to https
+   */
 
   protected function sslCheck($settings){
     // SSL
@@ -35,6 +53,14 @@ class App {
     }
   }
 
+
+  /**
+   * Sets the correct timezone from the config file
+   *
+   * @param array $settings 
+   *
+   * @return null
+   */
 
   protected function setTimezone($settings){
     date_default_timezone_set($settings['timezone']);

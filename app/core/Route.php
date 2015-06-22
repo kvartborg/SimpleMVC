@@ -146,7 +146,8 @@ class Route {
 
     if($error == 1){
       if($routes->baseUrl != ''){
-        if(strpos($routes->url, $routes->baseUrl) !== false){
+        $url = explode('/', $routes->url);
+        if(('/'.$url[1]) == $routes->baseUrl){
           if(substr($routes->url, 0, strlen($routes->baseUrl)) == $routes->baseUrl){
             
             $url = substr($routes->url, strlen($routes->baseUrl));
@@ -167,10 +168,13 @@ class Route {
       }
     }
 
-    if($error == 1 && !$GLOBALS['settings']['404'])
+    if($error == 1 && !$GLOBALS['settings']['404']){
+      http_response_code(404);
       Error::set('Failed to find Route', __FILE__, __LINE__);
-    elseif($error == 1 && $GLOBALS['settings']['404'])
+    } elseif($error == 1 && $GLOBALS['settings']['404']) {
+      http_response_code(404);
       return View::make('errors/404');
+    }
   }
 
 

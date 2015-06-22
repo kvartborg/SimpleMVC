@@ -3,9 +3,6 @@
 //	Initialize bootstrap
 // ------------------------------------
 
-// application files
-// require_once "core/App.php";
-// require_once "core/BaseController.php";
 
 // autoload core files
 $dir = __DIR__.'/core';

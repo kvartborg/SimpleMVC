@@ -14,7 +14,7 @@ class Cookie {
 
   public static function set($name, $value, $expire = 0, $path = '/', $domain = '', $secure = true, $httponly = true){
     if($expire > 0)
-      $expire = Time::now()->addHours(2)->int();
+      $expire = 7200;
 
     setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
   }

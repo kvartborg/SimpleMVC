@@ -1,6 +1,3 @@
-app/controllers/HelloController.php
-app/controllers/TestController.php
-app/routes.php
 public/*
 .DS_Store
 *.sublime-project

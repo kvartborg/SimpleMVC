@@ -1,14 +1,4 @@
 # Simple MVC
-Simple MVC is a simplistic php framework, its very compact, customizable and easy to use.
-
-## Setup
-Download or copy this repository to you domain or project folder, no need for pointing into the `public` folder. But you can always do it if posible. 
-
-#### Cache
-
-#### Set the default controller
-This is the equivalent of the "index page"/"homepage".
-You can change the default controller `app/config/app.php`, default mehod should always be set to `index`.
 
 #### Connect to MySQL
 Go to `app/config/database.php`.
@@ -23,7 +13,6 @@ return array(
 ```
 
 ## Views
-Render views with this function.
 ```php
 // render index.php
 View::make('index.php');

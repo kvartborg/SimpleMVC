@@ -81,16 +81,32 @@ class DB {
   }
 
 
+  public function rightJoin($table, $col1, $operator, $col2){
+    $this->join .= 'RIGHT JOIN '.$this->prefix.$table.' ON '.$col1.' '.$operator.' '.$col2.' ';
+    return $this;
+  }
+
+
   public function where($key, $operator = '=', $value = null){
     if($value == null){
       $value = $operator;
       $operator = '=';
     }
 
-    if($this->where == '')
-      $this->where = 'WHERE '.$key.$operator."'".$value."'"; 
-    else 
-      $this->where .= ' AND '.$key.$operator."'".$value."'"; 
+    if(is_array($value)){
+      $this->where = 'WHERE '.$key.' IN (';
+      for ($i=0; $i < count($value); $i++) { 
+        $this->where .= $value[$i];
+        if(($i+1) < count($value)) $this->where .= ',';
+      }
+      $this->where .= ')';
+
+    } else {
+      if($this->where == '')
+        $this->where = 'WHERE '.$key.$operator."'".$value."'"; 
+      else 
+        $this->where .= ' AND '.$key.$operator."'".$value."'"; 
+    }
 
     return $this;
   }
@@ -225,12 +241,38 @@ class DB {
 
 
   public function update($array){
+    $this->operator = 'UPDATE';
 
+    $update = '';
+    $n = 1;
+
+    foreach ($array as $key => $value) {
+      if(count($array) == $n)
+        $update .= $key.' = \''.$value.'\'';
+      else
+        $update .= $key.' = \''.$value.'\', ';
+
+      $n++;
+    }
+
+    $this->query = $this->operator.' '.$this->table.' SET '.$update.' '.$this->where;
+    
+    $q = $this->connection->prepare($this->query);
+    $result = $q->execute();
+
+    $this->connection = null;
+    return $result;
   }
 
 
   public function delete(){
+    $this->query = 'DELETE '.$this->operator.' '.$this->table.' '.$insert.' VALUES'.$values;
 
+    $q = $this->connection->prepare($this->query);
+    $result = $q->execute();
+
+    $this->connection = null;
+    return $result;
   }
 
 

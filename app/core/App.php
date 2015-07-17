@@ -16,10 +16,10 @@ class App {
     $this->sslCheck($settings);
     $this->setTimezone($settings);
 
-
     session_start();
-
+    ob_start();
     Route::find();
+    ob_end_flush();
   }
 
 

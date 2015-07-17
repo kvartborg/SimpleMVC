@@ -12,6 +12,18 @@ return array(
   'debug' => true,
 
 
+
+  'database' => array(
+    'driver'    => 'mysql',
+    'host'      => 'skemax.com.mysql',
+    'database'  => 'skemax_com',
+    'username'  => 'skemax_com',
+    'password'  => '7cba624f7c1',
+    'prefix'    => '',
+  ),
+
+
+
   // ----------------------------------
   //  Timezone & Date format
   // ----------------------------------
@@ -30,4 +42,5 @@ return array(
   //  Error overwrite
   // ----------------------------------
   '404' => false,
+
 );

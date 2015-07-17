@@ -1,31 +1,38 @@
 <?php
-// ------------------------------------ 
-//	Initialize bootstrap
-// ------------------------------------
 
-
-// autoload core files
-$dir = __DIR__.'/core';
-$files = scandir($dir);
-unset($files[0]);
-unset($files[1]);
-$files = array_values($files);
-for($i = 0; $i < count($files); $i++) {
-  require_once __DIR__."/core/".$files[$i];
+function requireFolder($folder){
+  $files = scandir($folder);
+  for($n = 2; $n < count($files); $n++){
+    $dir = $folder.'/'.$files[$n];
+    if(is_dir($dir))
+      requireFolder($dir);
+    else 
+      requireFile($dir);
+  }
 }
 
-// autoload models
-$dir = __DIR__.'/models';
-$files = scandir($dir);
-unset($files[0]);
-unset($files[1]);
-$files = array_values($files);
-for($i = 0; $i < count($files); $i++) {
-  require_once __DIR__."/models/".$files[$i];
+function requireFile($file){
+  if(strpos($file, '.php') !== false && is_file($file))
+    require_once $file;
 }
 
-// include routes
+function boot(){
+  $folders = ['core', 'models'];
+  
+  for($i = 0; $i < count($folders); $i++){
+    $files = scandir(__DIR__.'/'.$folders[$i]);
+    for($n = 2; $n < count($files); $n++){
+      $dir = __DIR__.'/'.$folders[$i].'/'.$files[$n];
+      if(is_dir($dir))
+        requireFolder($dir);
+      else
+        requireFile($dir);
+    }
+  }
+}
+
+boot();
+
 require_once __DIR__."/routes.php";
 
-// Create new instance of app
 $app = new App;

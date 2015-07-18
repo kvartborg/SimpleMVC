@@ -41,13 +41,10 @@ class DB {
 
 
   public static function query($str){
-    $q = $this->connection->prepare($this->query);
-    $q->execute();
-    $result = $q->fetchAll(PDO::FETCH_OBJ);
+    $db = new DB();
+    $db->query = $str;
 
-    $this->connection = null;
-
-    return $result;
+    return $db;
   }
 
 
@@ -240,6 +237,50 @@ class DB {
   }
 
 
+  public function insertGetId($array){
+    $this->operator = 'INSERT INTO';
+
+    $insert = '(';
+    $values = '(';
+    $n = 1;
+
+    if(isset($array[0])){
+      $tmp_array = $array;
+      $array = $array[0];
+    }
+
+    foreach ($array as $key => $value) {
+      if($n == count($array))
+        $insert .= $key.')';
+      else
+        $insert .= $key.', ';
+
+      if($n == count($array))
+        $values .= "'".$value."'".')';
+      else
+        $values .= "'".$value."'".', ';
+
+      $n++;
+    }
+
+    if(isset($tmp_array)){
+      unset($tmp_array[0]);
+      foreach ($tmp_array as $array) {
+        $values .= ', (\''.implode('\', \'', $array).'\')';
+      }
+    }
+
+    $this->query = $this->operator.' '.$this->table.' '.$insert.' VALUES'.$values;
+
+    $q = $this->connection->prepare($this->query);
+    $result = $q->execute();
+
+    $result = $this->connection->lastInsertId();
+
+    return $result;
+  }
+
+
   public function update($array){
     $this->operator = 'UPDATE';
 
@@ -266,7 +307,7 @@ class DB {
 
 
   public function delete(){
-    $this->query = 'DELETE '.$this->operator.' '.$this->table.' '.$insert.' VALUES'.$values;
+    $this->query = 'DELETE FROM '.$this->table.' '.$this->where;
 
     $q = $this->connection->prepare($this->query);
     $result = $q->execute();

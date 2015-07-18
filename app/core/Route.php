@@ -188,7 +188,7 @@ class Route {
     if(file_exists('app/controllers/'.$this->controller.'.php')){
       require_once 'app/controllers/'.$this->controller.'.php';
     } else {
-      if(!$GLOBALS['settings']['404'])
+      if($GLOBALS['settings']['debug'])
         Error::set('Failed to find controller <b>'.$this->controller.'</b>', __FILE__, __LINE__);
     }
 
@@ -206,7 +206,7 @@ class Route {
       call_user_func_array($obj, $this->params);
       return 0;
     } else {
-      if(!$GLOBALS['settings']['404'])
+      if($GLOBALS['settings']['debug'])
         Error::set('Failed to find method '.$this->method.', in '.$controller, __FILE__, __LINE__);
       return 1;
     }

@@ -16,9 +16,7 @@ function requireFile($file){
     require_once $file;
 }
 
-function boot(){
-  $folders = ['core', 'models'];
-  
+function autoRequire($folders){
   for($i = 0; $i < count($folders); $i++){
     $files = scandir(__DIR__.'/'.$folders[$i]);
     for($n = 2; $n < count($files); $n++){
@@ -31,8 +29,6 @@ function boot(){
   }
 }
 
-boot();
-
+autoRequire(['core', 'models']);
 require_once __DIR__."/routes.php";
-
 $app = new App;

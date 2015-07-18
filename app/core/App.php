@@ -9,17 +9,29 @@ class App {
    */
 
   public function __construct(){
+
+    $settings = $this->setSettings();
+    $this->sslCheck($settings);
+    $this->setTimezone($settings);
+
+    ob_start();
+    session_start();
+    Route::find();
+    ob_end_flush();
+  }
+
+
+  /**
+   * Set all settings from config files in a global variable
+   * 
+   * @return  array $settings
+   */
+  protected function setSettings(){
     $settings = include __DIR__."../../config/app.php";
 
     $GLOBALS['settings'] = $settings;
 
-    $this->sslCheck($settings);
-    $this->setTimezone($settings);
-
-    session_start();
-    ob_start();
-    Route::find();
-    ob_end_flush();
+    return $settings;
   }
 
 

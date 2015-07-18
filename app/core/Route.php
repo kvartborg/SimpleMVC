@@ -168,10 +168,10 @@ class Route {
       }
     }
 
-    if($error == 1 && !$GLOBALS['settings']['404']){
+    if($error == 1 && $GLOBALS['settings']['debug']){
       http_response_code(404);
       Error::set('Failed to find Route', __FILE__, __LINE__);
-    } elseif($error == 1 && $GLOBALS['settings']['404']) {
+    } elseif($error == 1 && !$GLOBALS['settings']['debug']) {
       http_response_code(404);
       return View::make('errors/404');
     }
@@ -190,6 +190,11 @@ class Route {
     } else {
       if(!$GLOBALS['settings']['404'])
         Error::set('Failed to find controller <b>'.$this->controller.'</b>', __FILE__, __LINE__);
+    }
+
+    if(strpos($this->controller, '/') !== false){
+      $this->controller = explode('/', $this->controller);
+      $this->controller = $this->controller[count($this->controller) - 1];
     }
 
     $controller = $this->controller;

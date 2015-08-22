@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>test</title>
+    <title>Hey you!</title>
 
     <script src="//use.typekit.net/hmq2djb.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>

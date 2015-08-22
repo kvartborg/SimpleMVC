@@ -2,9 +2,6 @@
   <head>
     <title>Hey you!</title>
 
-    <script src="//use.typekit.net/hmq2djb.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
-
     <style>
       body {
         font-family: 'gesta';

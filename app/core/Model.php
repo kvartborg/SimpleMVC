@@ -9,7 +9,9 @@ abstract class Model {
 
 
   public function __construct(){
-
+    if(is_null($this->table) || $this->table == ''){
+      Error::set('Model failed because no table is defined', __FILE__, __LINE__, __DIR__);
+    }
   }
 
 
@@ -52,8 +54,6 @@ abstract class Model {
         $data[$key] = $value;
     }
 
-    var_dump($data);
-
     if($this->new){
       $result = DB::table($this->table)->insertGetId($data, $this->index);
       $index = $this->index;
@@ -61,13 +61,12 @@ abstract class Model {
     } else {
       $result = DB::table($this->table)->where($this->index, '=', $this->id)->update($data);
     }
-
-    var_dump($result);
   }
 
 
-  public function delete(){
-    return DB::table($this->table)->where($this->index, $this->id)->delete();
+  public static function delete($id){
+    $instance = new static;
+    return DB::table($instance->table)->where($instance->index, $id)->delete();
   }
 
 }

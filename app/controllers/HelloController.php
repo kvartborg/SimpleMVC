@@ -1,23 +1,9 @@
 <?php
 
-class HelloController extends BaseController {
+class HelloController extends Controller {
 	
 	public function index(){
-    // make page
-    echo "hello";
+    View::make('index');
   }
 
-
-  public function test2(){
-    $time = Time::now();
-    echo $time;
-  }
-
-  public function addtest($test){
-    echo $test;
-  }
-
-  public function server(){
-    var_dump($_SERVER);
-  }
 }

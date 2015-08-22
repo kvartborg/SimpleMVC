@@ -1,5 +1,3 @@
 <?php
 
-Route::get('/', function(){
-  echo "Hello!";
-});
+Route::get('/', 'HelloController@index');

@@ -3,7 +3,7 @@
 function requireFolder($folder){
   $files = scandir($folder);
   for($n = 2; $n < count($files); $n++){
-    $dir = $folder.'/'.$files[$n];
+    $dir = $folder.'/app/'.$files[$n];
     if(is_dir($dir))
       requireFolder($dir);
     else 
@@ -18,9 +18,9 @@ function requireFile($file){
 
 function autoRequire($folders){
   for($i = 0; $i < count($folders); $i++){
-    $files = scandir(__DIR__.'/'.$folders[$i]);
+    $files = scandir(__DIR__.'/app/'.$folders[$i]);
     for($n = 2; $n < count($files); $n++){
-      $dir = __DIR__.'/'.$folders[$i].'/'.$files[$n];
+      $dir = __DIR__.'/app/'.$folders[$i].'/'.$files[$n];
       if(is_dir($dir))
         requireFolder($dir);
       else
@@ -29,6 +29,23 @@ function autoRequire($folders){
   }
 }
 
+
+
 autoRequire(['core', 'models', 'events', 'helpers']);
-require_once __DIR__."/routes.php";
-$app = new App;
+
+$settings = include __DIR__."/app/config/app.php";
+$GLOBALS['settings'] = $settings;
+date_default_timezone_set($settings['timezone']);
+
+
+$args = $_SERVER['argv'];
+unset($args[0]);
+
+$event = $args[1];
+unset($args[1]);
+
+$e = new $event($args);
+$e->fire();
+
+
+exit();

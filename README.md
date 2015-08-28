@@ -146,17 +146,79 @@ Time::now()->gm();
 ```
 
 ## Routing 
+##### Simple route
+```php
+Route::get('profile', function(){
+  return View::make('profile', ['user_id' => $user_id]);
+});
+```
+
+##### Route to controller method
+```php
+Route::get('profile', 'ProfileController@view');
+```
+
+##### Dynamic route controller
+```php
+Route::get('profile', 'ProfileController');
+```
+
+##### Parse variable with route
+```php
+Route::get('profile/:user_id', function($user_id){
+  return View::make('profile', ['user_id' => $user_id]);
+});
+
+// if variable is optional then add ?
+Route::get('profile/:user_id?', 'ProfileController@view');
+```
+
+##### Different request methods
+```php
+Route::get('profile', 'ProfileController');
+Route::post('profile', 'ProfileController');
+```
 
 ## Models
 
 ## Session
+##### Set session
+```php
+Session::set('key', 'value');
+```
+
+##### forget session
+```php
+Session::forget('key');
+```
 
 ## Cookies
+##### Set cookie
+```php
+Cookie::set('key', 'value');
+```
 
-## Redis
+##### forget cookie
+```php
+Cookie::forget('key');
+```
 
 ## Events
+##### Running event from php
+```php
+Event::run('TestEvent', ['key' => 'value']);
+```
 
+##### Queue events
+```php
+Event::run([
+  'FirstEvent',
+  'SecondEvent',
+  'ThirdEvent',
+], [
+  'key' => 'value'
+]);
+```
 
 
 

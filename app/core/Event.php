@@ -23,12 +23,12 @@ class Event {
 
 
   public function info($str){
-    echo $str."\n";
+    echo "\033[32m".$str."\033[0m\n";
   }
 
 
   public function error($str){
-    echo $str."\n";
+    echo "\033[31m".$str."\033[0m\n";
   }
 
 

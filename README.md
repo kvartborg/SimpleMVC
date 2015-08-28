@@ -1,4 +1,4 @@
-# Simple MVC
+# Specla
 
 #### Connect to MySQL
 Go to `app/config/database.php`.

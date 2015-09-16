@@ -55,7 +55,7 @@ abstract class Model {
     }
 
     if($this->new){
-      $result = DB::table($this->table)->insertGetId($data, $this->index);
+      $result = DB::table($this->table)->insertGetId($data);
       $index = $this->index;
       $this->$index = $result; 
     } else {

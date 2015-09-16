@@ -166,6 +166,7 @@ class DB {
                     $this->limit;
 
     $q = $this->connection->prepare($this->query);
+
     if($q->execute()){
       $result = $q->fetchAll(PDO::FETCH_OBJ);
     } else {
@@ -184,12 +185,16 @@ class DB {
   }
 
 
-  public function count($str = null){
-     
+  public function count($str = '*'){
+    $this->select(['COUNT('.$str.') AS count']);
+    $result = $this->get();
+    return $result[0]->count;
   }
 
-  public function sum(){
-
+  public function sum($str){
+    $this->select(['SUM('.$str.') AS sum']);
+    $result = $this->get();
+    return $result[0]->sum;
   }
 
 
@@ -229,8 +234,6 @@ class DB {
     $this->query = $this->operator.' '.$this->table.' '.$insert.' VALUES'.$values;
 
     $q = $this->connection->prepare($this->query);
-    $result = $q->execute();
-    //$result = $q->fetchAll(PDO::FETCH_OBJ);
 
     $this->connection = null;
     return $result;
@@ -273,10 +276,17 @@ class DB {
     $this->query = $this->operator.' '.$this->table.' '.$insert.' VALUES'.$values;
 
     $q = $this->connection->prepare($this->query);
-    $result = $q->execute();
+    
+    if (!$q) {
+      Error::set($this->connection->errorInfo(), __FILE__, __LINE__);
+    } else {
+      $result = $q->execute();
+    }
+
 
     $result = $this->connection->lastInsertId();
 
+    $this->connection = null;
     return $result;
   }
 
@@ -310,7 +320,6 @@ class DB {
     $this->query = 'DELETE FROM '.$this->table.' '.$this->where;
 
     $q = $this->connection->prepare($this->query);
-    $result = $q->execute();
 
     $this->connection = null;
     return $result;

@@ -29,6 +29,12 @@ abstract class Model {
   }
 
 
+  public static function select($array){
+    $instance = new static;
+    return DB::table($instance->table)->select($array);
+  }
+
+
   public static function where($key, $operator = '=', $value = null){
     $instance = new static;
 
@@ -41,10 +47,58 @@ abstract class Model {
   }
 
 
+  public static function join($table, $col1, $operator, $col2){
+    $instance = new static;
+    return DB::table($instance->table)->join($table, $col1, $operator, $col2);
+  }
+
+
+  public static function leftJoin($table, $col1, $operator, $col2){
+    $instance = new static;
+    return DB::table($instance->table)->leftJoin($table, $col1, $operator, $col2);
+  }
+
+
+  public static function rightJoin($table, $col1, $operator, $col2){
+    $instance = new static;
+    return DB::table($instance->table)->rightJoin($table, $col1, $operator, $col2);
+  }
+
+
+  public static function groupBy($str){
+    $instance = new static;
+    return DB::table($instance->table)->groupBy($str);
+  } 
+
+
+  public static function orderBy($str, $type = 'ASC'){
+    $instance = new static;
+    return DB::table($instance->table)->orderBy($str, $type);
+  }
+
+
+  public static function get(){
+    $instance = new static;
+    return DB::table($instance->table)->get();
+  }
+
+
   public static function all(){
     $instance = new static;
-
     return DB::table($instance->table)->get();
+  }
+
+
+  public static function count(){
+    $instance = new static;
+    return DB::table($instance->table)->count();
+  }
+
+
+  public static function first(){
+    $instance = new static;
+
+    return DB::table($instance->table)->first();
   }
 
 

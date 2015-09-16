@@ -220,6 +220,10 @@ Event::run([
 ]);
 ```
 
+##### Links
+php templating: http://code.tutsplus.com/tutorials/roll-your-own-templating-system-in-php--net-16596
+
+
 
 
 

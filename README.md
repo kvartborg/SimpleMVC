@@ -254,6 +254,32 @@ Event::run([
 ]);
 ```
 
+## TODO
+  - Template engine
+  - DB:
+    - Multiple DBs
+    - Needs more where options like:
+      - whereExists()
+      - whereNull()
+  - Model:
+    - Relationships?
+  - Hash
+    - `Hash::make()`
+  - Response:
+    - custom response like `Response::custom(404, ['options'])`
+  - Config
+    - Test composer
+    - Test public folder
+    - Add key
+  - Session encryption
+  - Cookie encryption
+  - Parse data with events
+  - Language
+  - Helpers:
+    - Lang
+    - View
+
+
 ## Links
 php templating: http://code.tutsplus.com/tutorials/roll-your-own-templating-system-in-php--net-16596
 

@@ -181,6 +181,40 @@ Route::post('profile', 'ProfileController');
 
 ## Models
 
+##### get all records of model
+```php
+User::all();
+```
+
+##### Select a model
+```php
+User::find($user_id);
+```
+
+##### Model and query builder
+```php
+User::where('user_id', $user_id)->get();
+```
+
+##### Create new model
+```php
+$user = new User;
+$user->name = $name;
+$user->save();
+```
+
+##### Update model
+```php
+$user = User::find($user_id);
+$user->name = $name;
+$user->save();
+```
+
+##### Delete model
+```php
+User::delete($user_id);
+```
+
 ## Session
 ##### Set session
 ```php

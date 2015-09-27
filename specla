@@ -33,9 +33,8 @@ function autoRequire($folders){
 
 autoRequire(['core', 'models', 'events', 'helpers']);
 
-$settings = include __DIR__."/app/config/app.php";
-$GLOBALS['settings'] = $settings;
-date_default_timezone_set($settings['timezone']);
+$GLOBALS['config'] = include __DIR__."/app/config.php";
+date_default_timezone_set($GLOBALS['config']['timezone']);
 
 
 $args = $_SERVER['argv'];

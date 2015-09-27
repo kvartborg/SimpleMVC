@@ -23,7 +23,7 @@ class DB {
 
 
   function __construct(){
-    $settings       = $GLOBALS['settings']['database'];
+    $settings       = $GLOBALS['config']['database'];
     $this->host     = $settings['host'];
     $this->database = $settings['database'];
     $this->username = $settings['username'];

@@ -10,28 +10,13 @@ class App {
 
   public function __construct(){
 
-    $settings = $this->setSettings();
-    $this->sslCheck($settings);
-    $this->setTimezone($settings);
+    $this->sslCheck($GLOBALS['config']);
+    $this->setTimezone($GLOBALS['config']);
 
     ob_start();
     session_start();
     Route::find();
     ob_end_flush();
-  }
-
-
-  /**
-   * Set all settings from config files in a global variable
-   * 
-   * @return  array $settings
-   */
-  protected function setSettings(){
-    $settings = include __DIR__."../../config/app.php";
-
-    $GLOBALS['settings'] = $settings;
-
-    return $settings;
   }
 
 
@@ -56,9 +41,9 @@ class App {
    * @return null Redirects to https
    */
 
-  protected function sslCheck($settings){
+  protected function sslCheck($config){
     // SSL
-    if($_SERVER['HTTPS'] != 'on' && $settings['ssl']){
+    if($config['ssl'] && $_SERVER['HTTPS'] != 'on'){
       header("HTTP/1.1 301 Moved Permanently");
       header("Location: https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
       exit();
@@ -74,7 +59,32 @@ class App {
    * @return null
    */
 
-  protected function setTimezone($settings){
-    date_default_timezone_set($settings['timezone']);
+  protected function setTimezone($config){
+    date_default_timezone_set($config['timezone']);
+  }
+
+
+  /**
+   * Retrieve values from your config file
+   *
+   * @param string $str 
+   *
+   * @return mixed $config
+   */
+  
+  public static function config($str = null){
+    $config = $GLOBALS['config'];
+    if(strpos($str, '.') !== false){
+      $tmp = explode('.', $str);
+      foreach ($tmp as $value) {
+        $config = $config[$value];
+      }
+    } else {
+      if(is_null($str))
+        $config = $config;
+      else
+        $config = $config[$str];
+    }
+    return $config;
   }
 }

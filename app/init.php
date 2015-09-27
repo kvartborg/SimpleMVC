@@ -1,5 +1,8 @@
 <?php
 
+$GLOBALS['config'] = include __DIR__."/config.php";
+
+
 function requireFolder($folder){
   $files = scandir($folder);
   for($n = 2; $n < count($files); $n++){

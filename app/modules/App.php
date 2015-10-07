@@ -74,17 +74,22 @@ class App {
   
   public static function config($str = null){
     $config = $GLOBALS['config'];
+    return App::dotString($str, $config);
+  }
+
+
+  public static function dotString($str, $data){
     if(strpos($str, '.') !== false){
       $tmp = explode('.', $str);
       foreach ($tmp as $value) {
-        $config = $config[$value];
+        $data = $data[$value];
       }
     } else {
       if(is_null($str))
-        $config = $config;
+        $data = $data;
       else
-        $config = $config[$str];
+        $data = $data[$str];
     }
-    return $config;
+    return $data;
   }
 }

@@ -15,6 +15,10 @@ class Session {
     }
   }
 
+  public static function has($name){
+    return isset($_SESSION[$name]);
+  }
+
   public static function forget($name){
     if(isset($_SESSION[$name])){
       unset($_SESSION[$name]);

@@ -33,6 +33,22 @@ class Route {
   }
 
 
+  // NEEDS FIX: post to any
+  public static function any($url, $func){
+    Route::set($url, $func, 'ANY');
+  }
+
+
+  public static function delete($url, $func){
+    Route::set($url, $func, 'DELETE');
+  }
+
+
+  public static function put($url, $func){
+    Route::set($url, $func, 'PUT');
+  }
+
+
   public static function post($url, $func){
     Route::set($url, $func, 'POST');
   }
@@ -107,7 +123,7 @@ class Route {
         $vars = [];
       }
 
-      if($routes->url == $route->url && $route->method == $_SERVER['REQUEST_METHOD']){
+      if($routes->url == $route->url && ($route->method == $_SERVER['REQUEST_METHOD'] || $route->method == 'ANY')){
         // static
         $error = 0;
         if(is_callable($route->func)){
@@ -168,10 +184,10 @@ class Route {
       }
     }
 
-    if($error == 1 && $GLOBALS['settings']['debug']){
+    if($error == 1 && $GLOBALS['config']['debug']){
       http_response_code(404);
       Error::set('Failed to find Route', __FILE__, __LINE__);
-    } elseif($error == 1 && !$GLOBALS['settings']['debug']) {
+    } elseif($error == 1 && !$GLOBALS['config']['debug']) {
       http_response_code(404);
       return View::make('errors/404');
     }

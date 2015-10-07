@@ -322,7 +322,7 @@ class DB {
     $q = $this->connection->prepare($this->query);
 
     $this->connection = null;
-    return $result;
+    return $q;
   }
 
 

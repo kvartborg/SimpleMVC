@@ -115,12 +115,12 @@ abstract class Model {
     } else {
       $result = DB::table($this->table)->where($this->index, '=', $this->id)->update($data);
     }
+
   }
 
 
-  public static function delete($id){
-    $instance = new static;
-    return DB::table($instance->table)->where($instance->index, $id)->delete();
+  public function delete(){
+    return DB::table($this->table)->where($this->index, $this->id)->delete();
   }
 
 }

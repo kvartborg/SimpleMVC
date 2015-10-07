@@ -40,6 +40,6 @@ function autoRequire($folders){
 }
 
 
-autoRequire(['core', 'models', 'events', 'helpers']);
+autoRequire($GLOBALS['config']['folders']);
 require_once __DIR__."/routes.php";
 $app = new App;

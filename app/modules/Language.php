@@ -11,12 +11,8 @@ class Lang {
     } 
 
     $lang = $GLOBALS['language'][explode('.', $str)[0]];
-    
-    $str = explode('.', $str);
-    unset($str[0]);
-    $str = join('.', $str);
 
-    $str = App::dotString($str, $lang);
+    $str = static::dotString($str, $lang);
 
     if(count($vars) > 0){
       if(static::isList($vars))
@@ -56,6 +52,30 @@ class Lang {
 
   public static function  isList($arr){
     return array_keys($arr) !== range(0, count($arr) - 1);
+  }
+
+
+  public static function dotString($str, $data){
+    $tmp = explode('.', $str);
+    unset($tmp[0]);
+    $tmp = join('.', $tmp);
+
+    if(strpos($str, '.') !== false){
+      $tmp = explode('.', $tmp);
+      foreach ($tmp as $value) {
+        isset($data[$value]) ? $data = $data[$value] : $data = '';
+      }
+
+      if($data == '')
+        $data = $str;
+    } else {
+      if(is_null($str))
+        $data = $data;
+      else
+        $data = isset($data[$str]) ? $data[$str]: $str;
+    }
+
+    return $data;
   }
 
 }

@@ -1,5 +1,5 @@
 <?php
 
 return [
-  'something' => 'nice',
+  'something' => 'This is so :var, you can replace variables in :strigs',
 ];

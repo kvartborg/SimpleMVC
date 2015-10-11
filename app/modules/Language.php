@@ -6,13 +6,17 @@ class Lang {
     $lang = App::config('language');
     if(Session::has('language')) $lang = Session::get('language');
 
-    $file = include __DIR__."/../resources/languages/".$lang.'/'.explode('.', $str)[0].'.php';
+    if(!isset($GLOBALS['language'][explode('.', $str)[0]])){
+      $GLOBALS['language'][explode('.', $str)[0]] = include __DIR__."/../resources/languages/".$lang.'/'.explode('.', $str)[0].'.php';
+    } 
+
+    $lang = $GLOBALS['language'][explode('.', $str)[0]];
     
     $str = explode('.', $str);
     unset($str[0]);
     $str = join('.', $str);
 
-    $str = App::dotString($str, $file);
+    $str = App::dotString($str, $lang);
 
     if(count($vars) > 0){
       if(static::isList($vars))

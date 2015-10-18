@@ -12,13 +12,16 @@ class Event {
   public static function run($event, $data = []){
     $e = new Event;
     if(is_array($event)){
-      $e->queue = $event;
-      exec('php specla '.$event[0].' > /dev/null 2>/dev/null &');
-      unset($e->queue[0]);
-      $e->queue = array_values($e->queue);
+      $command = '';
+      for($i = 0; $i < count($event); $i++){
+        $command .= 'php specla '.$event.' > /dev/null 2>/dev/null; ';
+      }
+      $command .= '&';
     } else {
-      exec('php specla '.$event.' > /dev/null 2>/dev/null &');
+      $command = 'php specla '.$event.' > /dev/null 2>/dev/null &';
     }
+    
+    exec($command);
   }
 
 
@@ -29,13 +32,6 @@ class Event {
 
   public function error($str){
     echo "\033[31m".$str."\033[0m\n";
-  }
-
-
-  public function __destruct(){
-    if(count($this->queue) > 0){
-      $this->run($this->queue);
-    }
   }
 
 }

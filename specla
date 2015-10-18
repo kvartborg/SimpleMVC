@@ -1,5 +1,11 @@
 <?php
 
+$GLOBALS['config'] = include __DIR__."/app/config.php";
+
+if($GLOBALS['config']['composer']){
+  require_once __DIR__.'/../vendor/autoload.php';
+}
+
 function requireFolder($folder){
   $files = scandir($folder);
   for($n = 2; $n < count($files); $n++){
@@ -31,9 +37,7 @@ function autoRequire($folders){
 
 
 
-autoRequire(['core', 'models', 'events', 'helpers']);
-
-$GLOBALS['config'] = include __DIR__."/app/config.php";
+autoRequire($GLOBALS['config']['folders']);
 date_default_timezone_set($GLOBALS['config']['timezone']);
 
 

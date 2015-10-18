@@ -8,7 +8,7 @@ class Time {
 
 
   protected function __construct(){
-    $config = include __DIR__.'../../config/app.php';
+    $config = $GLOBALS['config'];
     $this->format = $config['date_format'];
   }
 

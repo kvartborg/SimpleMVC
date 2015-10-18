@@ -31,7 +31,7 @@ function fatalErrorHandler() {
     ]);
   }
 
-  $settings = include __DIR__."../../config.php";
+  $settings = $GLOBALS['config'];
 
   if(count($errors) > 0 && $settings['debug'] && php_sapi_name() !== 'cli'){
     $html = '<html>';

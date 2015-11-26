@@ -320,9 +320,10 @@ class DB {
     $this->query = 'DELETE FROM '.$this->table.' '.$this->where;
 
     $q = $this->connection->prepare($this->query);
+    $result = $q->execute();
 
     $this->connection = null;
-    return $q;
+    return $result;
   }
 
 

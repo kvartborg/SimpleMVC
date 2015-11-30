@@ -44,11 +44,25 @@ date_default_timezone_set($GLOBALS['config']['timezone']);
 $args = $_SERVER['argv'];
 unset($args[0]);
 
-$event = $args[1];
+$event =  $args[1];
 unset($args[1]);
+
+if(strpos($event, ':') !== false)
+  $path = explode(':', $event);
+else
+  $path = ['', $event];
+
+$event = ucfirst($path[count($path)-1]);
+unset($path[count($path)-1]);
+
+
+if(!strpos($event, 'Event')){
+  $event .= 'Event';
+} 
+
+require_once __DIR__."/app/events/".join('/',$path).'/'.$event.'.php';
 
 $e = new $event($args);
 $e->fire();
-
 
 exit();

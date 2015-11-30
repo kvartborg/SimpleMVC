@@ -37,7 +37,7 @@
 
       h1 {
         color: #373F47;
-        font-family: 'facit';
+        font-family: gesta, Helvetica, sans-serif;
         font-size: 5em;
         margin: 0;
       }

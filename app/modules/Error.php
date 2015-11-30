@@ -43,6 +43,7 @@ function fatalErrorHandler() {
                   overflow: hidden; 
                   font-family: gesta, helvetica, verdana;
                   color: #555;
+                  font-size: 16px !important;
                 }'
                 
                 .'#view { 
@@ -56,7 +57,7 @@ function fatalErrorHandler() {
 
                 .'h1 {
                   color: #373F47;
-                  font-family: facit;
+                  font-family: gesta, helvetica, verdana;
                   margin-top: 100px;
                   margin-bottom: 80px;
                 }'

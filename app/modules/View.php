@@ -2,7 +2,7 @@
 
 class View {
   
-  public static function make($view, $data = array()){
+  public static function make($view, $data = []){
 
     // convert the $data array to variables
     extract($data);

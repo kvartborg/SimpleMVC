@@ -234,6 +234,7 @@ class DB {
     $this->query = $this->operator.' '.$this->table.' '.$insert.' VALUES'.$values;
 
     $q = $this->connection->prepare($this->query);
+    $result = $q->execute();
 
     $this->connection = null;
     return $result;

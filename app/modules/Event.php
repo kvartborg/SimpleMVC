@@ -29,7 +29,7 @@ class Event {
 
 
   public function debug($str){
-    if(in_array('debug', $this->args)){
+    if(in_array('--debug', $this->args) || in_array('debug', $this->args) || in_array('-d', $this->args)){
       if(is_string($str)){
         echo $str."\n";
       } else {

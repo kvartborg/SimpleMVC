@@ -93,16 +93,16 @@ class DB {
     if(is_array($value)){
       $this->where = 'WHERE '.$key.' IN (';
       for ($i=0; $i < count($value); $i++) { 
-        $this->where .= $value[$i];
+        $this->where .= addslashes($value[$i]);
         if(($i+1) < count($value)) $this->where .= ',';
       }
       $this->where .= ')';
 
     } else {
       if($this->where == '')
-        $this->where = 'WHERE '.$key.$operator."'".$value."'"; 
+        $this->where = 'WHERE '.$key.$operator."'".addslashes($value)."'"; 
       else 
-        $this->where .= ' AND '.$key.$operator."'".$value."'"; 
+        $this->where .= ' AND '.$key.$operator."'".addslashes($value)."'"; 
     }
 
     return $this;
@@ -116,9 +116,9 @@ class DB {
     }
 
     if($this->where == '')
-      $this->where = 'WHERE '.$key.$operator."'".$value."'"; 
+      $this->where = 'WHERE '.$key.$operator."'".addslashes($value)."'"; 
     else 
-      $this->where .= ' OR '.$key.$operator."'".$value."'"; 
+      $this->where .= ' OR '.$key.$operator."'".addslashes($value)."'"; 
 
     return $this;
   }
@@ -217,9 +217,9 @@ class DB {
         $insert .= $key.', ';
 
       if($n == count($array))
-        $values .= "'".$value."'".')';
+        $values .= "'".addslashes($value)."'".')';
       else
-        $values .= "'".$value."'".', ';
+        $values .= "'".addslashes($value)."'".', ';
 
       $n++;
     }
@@ -260,9 +260,9 @@ class DB {
         $insert .= $key.', ';
 
       if($n == count($array))
-        $values .= "'".$value."'".')';
+        $values .= "'".addslashes($value)."'".')';
       else
-        $values .= "'".$value."'".', ';
+        $values .= "'".addslashes($value)."'".', ';
 
       $n++;
     }
@@ -300,9 +300,9 @@ class DB {
 
     foreach ($array as $key => $value) {
       if(count($array) == $n)
-        $update .= $key.' = \''.$value.'\'';
+        $update .= $key.' = \''.addslashes($value).'\'';
       else
-        $update .= $key.' = \''.$value.'\', ';
+        $update .= $key.' = \''.addslashes($value).'\', ';
 
       $n++;
     }

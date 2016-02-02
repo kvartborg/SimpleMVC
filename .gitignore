@@ -4,3 +4,4 @@ node_modules
 *.sublime-project
 *.sublime-workspace
 sftp-config.json
+app/config.php

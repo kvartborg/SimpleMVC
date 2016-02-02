@@ -1,6 +1,6 @@
 <?php
 
-abstract class Model {
+class Model {
 
 
   protected $table;
@@ -9,9 +9,31 @@ abstract class Model {
 
 
   public function __construct(){
-    if(is_null($this->table) || $this->table == ''){
-      Error::set('Model failed because no table is defined', __FILE__, __LINE__, __DIR__);
+    // if(is_null($this->table) || $this->table == ''){
+    //   Error::set('Model failed because no table is defined', __FILE__, __LINE__, __DIR__);
+    // }
+  }
+
+
+  public static function register($data = [], $table = '', $index = 'id'){
+    $result = [];
+    foreach($data as $item) {
+      $instance = new static;
+      $instance->new = false;
+
+      if(!isset($instance->table)){
+        $instance->table = $table;
+        $instance->index = $index;
+      }
+
+      foreach(get_object_vars($item) as $key => $value) {
+        $instance->$key = $value;
+      }
+
+      $result[] = $instance;
     }
+
+    return $result;
   }
 
 
@@ -79,13 +101,13 @@ abstract class Model {
 
   public static function get(){
     $instance = new static;
-    return DB::table($instance->table)->get();
+    return DB::table($instance->table)->getAsModels($instance->index);
   }
 
 
   public static function all(){
     $instance = new static;
-    return DB::table($instance->table)->get();
+    return DB::table($instance->table)->getAsModels($instance->index);
   }
 
 

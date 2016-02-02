@@ -185,6 +185,11 @@ class DB {
   }
 
 
+  public function getAsModels($index = 'id'){
+    return Model::register($this->get(), $this->table, $index);
+  }
+
+
   public function count($str = '*'){
     $this->select(['COUNT('.$str.') AS count']);
     $result = $this->get();

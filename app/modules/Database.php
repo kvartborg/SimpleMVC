@@ -128,7 +128,7 @@ class DB {
     if($this->order == '')
       $this->order = 'ORDER BY '.$str.' '.$type;
     else
-      $this->order .= ' AND '.$str.' '.$type;
+      $this->order .= ', '.$str.' '.$type;
 
     return $this;
   }

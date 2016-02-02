@@ -7,7 +7,6 @@ class TestEvent extends Event {
     $data = ['data' => 'cool stuff!', 'test' => true];
 
     $this->debug($this->data);
-
   }
 
 }

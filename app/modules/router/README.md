@@ -1,4 +1,4 @@
-# Routes
+# Router
 
 #### Register router
 ```php

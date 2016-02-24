@@ -1,5 +1,11 @@
 # Routes
 
+#### Register router
+```php
+// all routes should be defined before the router is registered
+$router = new Router();
+```
+
 #### Define routes
 ```php
 Route::get('/path', function(){

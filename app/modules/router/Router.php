@@ -172,7 +172,7 @@ class Router {
 
     $controller = new $class;
     if(method_exists($controller, $method)){
-      call_user_func_array([new $class, $method], $this->vars);
+      call_user_func_array([$controller, $method], $this->vars);
     } else {
       throw new Exception($class.' is missing the '.$method.' method');
     }

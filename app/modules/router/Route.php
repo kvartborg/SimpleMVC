@@ -14,6 +14,12 @@ class Route {
    */
   public $options = [];
 
+  /**
+   * Prefix
+   * @var string
+   */
+  protected static $prefix = '';
+
 
   /**
    * Register new route
@@ -36,7 +42,7 @@ class Route {
     if(strlen($path) > 1)
       $path = rtrim($path, '/');
 
-    $this->path = $path; 
+    $this->path = static::$prefix.$path; 
     $this->options['method'] = $method;
     $this->options['middleware'] = $middleware;
     $this->options['callback'] = $callback;
@@ -78,6 +84,27 @@ class Route {
   public static function catchAll($callback, $code = 200){
     http_response_code($code);
     Router::$missing = $callback;
+  }
+
+
+  public static function group($prefix, $middleware, $callback = null){
+      if(is_null($callback)){
+        $callback = $middleware;
+        $middleware = true;
+      }
+
+      if($prefix[0] !== '/')
+        $prefix = '/'.$prefix;
+
+      if(strlen($prefix) > 1)
+        $prefix = rtrim($prefix, '/');
+
+      static::$prefix = $prefix;
+
+      if($middleware)
+        call_user_func($callback);
+
+      static::$prefix = '';
   }
 
 

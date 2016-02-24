@@ -33,8 +33,8 @@ class Router {
   protected $vars = [];
 
   /**
-   * Contains the catch all closure 
-   * @var null
+   * Contains the missing closure
+   * @var null|closure
    */
   public static $missing = null;
 
@@ -121,13 +121,13 @@ class Router {
       if(strpos($pathURI[$i], ':') !== false && strpos($pathURI[$i], '?')){
         // optional
         if(isset($uri[$i]))
-          $this->vars[] = $uri[$i];
+          $this->vars[] = urldecode($uri[$i]);
 
         $constructURI[$i] = isset($uri[$i]) ? $uri[$i] : '';
       } elseif(strpos($pathURI[$i], ':') !== false) {
         // required
         if(isset($uri[$i])){
-          $this->vars[] = $uri[$i];
+          $this->vars[] = urldecode($uri[$i]);
           $constructURI[$i] = $uri[$i];
         } else {
           $constructURI[$i] = $pathURI[$i];

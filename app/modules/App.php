@@ -7,16 +7,12 @@ class App {
    *
    * @return null
    */
-
   public function __construct(){
-
     $this->sslCheck($GLOBALS['config']);
     $this->setTimezone($GLOBALS['config']);
 
-    ob_start();
     session_start();
-    Route::find();
-    ob_end_flush();
+    new Router;
   }
 
 

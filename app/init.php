@@ -2,7 +2,6 @@
 
 $GLOBALS['config'] = include __DIR__."/config.php";
 
-
 if($GLOBALS['config']['composer']){
   require_once __DIR__.'/../vendor/autoload.php';
 }
@@ -39,7 +38,8 @@ function autoRequire($folders){
   }
 }
 
-
+ob_start();
 autoRequire($GLOBALS['config']['folders']);
 require_once __DIR__."/routes.php";
 $app = new App;
+ob_end_flush();

@@ -68,24 +68,36 @@ class App {
    * @return mixed $config
    */
   
-  public static function config($str = null){
-    $config = $GLOBALS['config'];
-    return App::dotString($str, $config);
+  public static function config($str = null, $value = null){
+    if(is_null($value)) {
+      $config = $GLOBALS['config'];
+      return App::dotString($str, $config);
+    } else {
+      $config = $GLOBALS['config'];
+      return App::dotString($str, $config, $value);
+    }
   }
 
 
-  public static function dotString($str, $data){
-    if(strpos($str, '.') !== false){
-      $tmp = explode('.', $str);
-      foreach ($tmp as $value) {
-        $data = $data[$value];
+  public static function dotString($str, &$array, $value = null){
+    if(!is_null($value)){
+      $loc = &$array;
+      foreach(explode('.', $str) as $step){
+        $loc = &$loc[$step];
       }
-    } else {
-      if(is_null($str))
-        $data = $data;
-      else
-        $data = $data[$str];
+
+      $loc = $value;
+      return $GLOBALS['config'] = $array;
     }
-    return $data;
+
+    if(strpos($str, '.') !== false){
+      foreach(explode('.', $str) as $step){
+        $array = $array[$step];
+      }
+
+      return $array;
+    } else {
+      return $array[$str];
+    }
   }
 }

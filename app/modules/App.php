@@ -38,7 +38,10 @@ class App {
    */
 
   protected function sslCheck($config){
-    // SSL
+    if($_SERVER['REMOTE_ADDR'] === '127.0.0.1'){
+      return false;
+    }
+
     if($config['ssl'] && $_SERVER['HTTPS'] != 'on'){
       header("HTTP/1.1 301 Moved Permanently");
       header("Location: https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
@@ -69,13 +72,8 @@ class App {
    */
   
   public static function config($str = null, $value = null){
-    if(is_null($value)) {
-      $config = $GLOBALS['config'];
-      return App::dotString($str, $config);
-    } else {
-      $config = $GLOBALS['config'];
-      return App::dotString($str, $config, $value);
-    }
+    $config = $GLOBALS['config'];
+    return App::dotString($str, $config, $value);
   }
 
 

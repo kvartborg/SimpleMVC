@@ -60,7 +60,13 @@ if(!strpos($event, 'Event')){
   $event .= 'Event';
 } 
 
-require_once __DIR__."/app/events/".join('/',$path).'/'.$event.'.php';
+if(file_exists(__DIR__."/app/events/".join('/',$path).'/'.$event.'.php')){
+  require_once __DIR__."/app/events/".join('/',$path).'/'.$event.'.php';
+} else {
+  Event::error('Couldn\'t find the event...');
+  Event::error('Check that the file exists in the app/events/ folder.');
+  exit();
+}
 
 $e = new $event($args);
 $e->fire();

@@ -60,11 +60,11 @@ class Router {
    * @return null
    */
   protected function shortPaths(){
-    foreach(static::$paths as $path => $options) {
-      if(strpos($path, ':')){
-        static::$pathsWithVars[$path] = $options;
+    foreach(static::$paths as $options) {
+      if(strpos($options['path'], ':')){
+        static::$pathsWithVars[] = $options;
       } else {
-        static::$pathsWithoutVars[$path] = $options;
+        static::$pathsWithoutVars[] = $options;
       }
     }
   }
@@ -75,12 +75,12 @@ class Router {
    * @return null
    */
   protected function find(){
-    foreach(static::$pathsWithoutVars as $path => $options){
-      if($this->uri === $path 
+    foreach(static::$pathsWithoutVars as $options){
+      if($this->uri === $options['path']
         && $options['middleware'] === true
         && ($options['method'] === $_SERVER['REQUEST_METHOD'] || $options['method'] === 'ALL')
       ){
-        return $this->trigger($path, $options);
+        return $this->trigger($options);
       }
     }
 
@@ -93,12 +93,12 @@ class Router {
    * @return null 
    */
   protected function checkForVars(){
-    foreach(static::$pathsWithVars as $path => $options){
-      if($this->uri === $this->constructURI($path) 
+    foreach(static::$pathsWithVars as $options){
+      if($this->uri === $this->constructURI($options['path']) 
         && $options['middleware'] === true
         && ($options['method'] === $_SERVER['REQUEST_METHOD'] || $options['method'] === 'ALL')
       ){
-        return $this->trigger($path, $options);
+        return $this->trigger($options);
       }
     }
 
@@ -146,7 +146,7 @@ class Router {
    * @param  array  $options Contains middleware, name, closure and more...
    * @return null
    */
-  protected function trigger($path, $options){
+  protected function trigger($options){
     if(is_callable($options['callback'])){
       call_user_func_array($options['callback'], $this->vars);
     } else {

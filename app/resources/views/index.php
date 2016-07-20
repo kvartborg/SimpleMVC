@@ -75,7 +75,7 @@
     <section>
       <article>
         <h1>Hello</h1>
-        <p>Welcome to Specla, have fun developing your awesome application!</p>
+        <p>Welcome, have fun developing your awesome application!</p>
       </article>
     </section>
     <div id="help"><a href="">Do you need help?</a></div>

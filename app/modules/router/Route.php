@@ -42,7 +42,7 @@ class Route {
     if(strlen($path) > 1)
       $path = rtrim($path, '/');
 
-    $this->path = static::$prefix.$path; 
+    $this->options['path'] = static::$prefix.$path; 
     $this->options['method'] = $method;
     $this->options['middleware'] = $middleware;
     $this->options['callback'] = $callback;
@@ -124,7 +124,7 @@ class Route {
    * @return Route
    */
   public function register(){
-    Router::$paths[$this->path] = $this->options;
+    Router::$paths[] = $this->options;
     return $this;
   }
 }

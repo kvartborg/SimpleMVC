@@ -15,7 +15,7 @@ class View {
 
     // check for any errors
     if(count($GLOBALS['errors']) == 0){
-      require_once 'app/resources/views'.$view.'.php';
+      require_once __DIR__.'/../resources/views'.$view.'.php';
     }
   }
 
